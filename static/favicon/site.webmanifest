@@ -1,0 +1,14 @@
+{
+  "name": "DORA Explorer",
+  "short_name": "DORA",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#4a76c8",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

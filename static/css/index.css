@@ -1,0 +1,101 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.publication-title {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 700;
+}
+
+.publication-venue {
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+.footer .icon-link {
+  font-size: 25px;
+  color: #000;
+}
+
+.caption {
+  color: #666;
+  margin-top: 0.4rem;
+  margin-bottom: 2rem;
+}
+
+/* Algorithm box — plain academic style */
+.algorithm-box {
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  margin: 1.5rem 0 2rem;
+  background: #fafafa;
+}
+
+.algorithm-title {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #dbdbdb;
+  background: #f5f5f5;
+  font-size: 0.95rem;
+}
+
+.algorithm-content {
+  padding: 1rem;
+  font-size: 0.92rem;
+}
+
+.algorithm-content pre {
+  background: transparent;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.algorithm-content hr {
+  margin: 0.5rem 0;
+  background-color: #dbdbdb;
+  height: 1px;
+}
+
+.algorithm-content p {
+  margin-bottom: 0.25rem;
+}
+
+/* DORA highlight in tables */
+.is-dora {
+  background-color: #eff8ff !important;
+}
+
+tr.is-dora-row > td {
+  background-color: #eff8ff !important;
+}
+
+tr.model-divider > td {
+  border-top: 2px solid #aaa;
+}
+
+/* Table tweaks */
+.table small {
+  color: #999;
+}
+
+.table th {
+  font-size: 0.85rem;
+}
+
+/* Placeholder for figures that haven't been added yet */
+.placeholder-figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #ccc;
+  border-radius: 6px;
+  padding: 3rem 1rem;
+  margin: 1.5rem 0;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.placeholder-figure i {
+  margin-right: 0.3rem;
+}
