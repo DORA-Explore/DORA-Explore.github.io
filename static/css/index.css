@@ -100,19 +100,17 @@ tr.model-divider > td {
   margin-right: 0.3rem;
 }
 
-/* Embedded overview figure (PDF) */
-.overview-pdf-wrapper {
+/* Overview figure (rasterized from PDF — avoids browser PDF chrome) */
+.overview-figure {
   margin: 1.5rem 0 0;
-  border: 1px solid #dbdbdb;
-  border-radius: 6px;
-  overflow: hidden;
-  background: #fafafa;
+  text-align: center;
 }
 
-.overview-pdf-wrapper iframe {
+.overview-figure img {
   display: block;
-  width: 100%;
-  min-height: 520px;
-  height: 75vh;
-  border: 0;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
 }
