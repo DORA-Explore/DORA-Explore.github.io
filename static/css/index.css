@@ -99,3 +99,20 @@ tr.model-divider > td {
 .placeholder-figure i {
   margin-right: 0.3rem;
 }
+
+/* Embedded overview figure (PDF) */
+.overview-pdf-wrapper {
+  margin: 1.5rem 0 0;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fafafa;
+}
+
+.overview-pdf-wrapper iframe {
+  display: block;
+  width: 100%;
+  min-height: 520px;
+  height: 75vh;
+  border: 0;
+}
