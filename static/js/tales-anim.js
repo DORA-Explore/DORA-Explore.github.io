@@ -3,52 +3,179 @@
   if (!root) return;
 
   const TASK_DESC = "You are hungry! Let\u2019s cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!";
-  const MAX_SCORE = 5;
+  const MAX_SCORE = 3;
 
   const doraSteps = [
-    { action: "look shelf", feedback: "The shelf is unstable.", score: 0, pathway: "greedy", room: "Pantry" },
-    { action: "examine shelf", feedback: "The shelf is unstable.", score: 0, pathway: "explore", room: null },
-    { action: "check door", feedback: "It is what it is, a frosted-glass door. You can\u2019t see inside it because the lid\u2019s in your way.", score: 0, pathway: "greedy", room: null },
-    { action: "open door", feedback: "You open frosted-glass door.", score: 0, pathway: "greedy", room: null },
-    { action: "go south", feedback: "You arrive in a kitchen with a fridge, oven, table with a cookbook, counter, and stove.", score: 0, pathway: "greedy", room: "Kitchen" },
-    { action: "take cookbook", feedback: "You take the cookbook from the table.", score: 0, pathway: "greedy", room: null },
-    { action: "read cookbook", feedback: "Recipe #1: Gather banana, block of cheese, purple potato. Directions: dice the banana, fry the block of cheese, slice the purple potato, prepare meal.", score: 0, pathway: "greedy", room: null },
-    { action: "go east", feedback: "You are in a livingroom with a sofa.", score: 0, pathway: "explore", room: "Livingroom" },
-    { action: "go west", feedback: "Back in the kitchen.", score: 0, pathway: "explore", room: "Kitchen" },
-    { action: "look counter", feedback: "On the counter are a sliced fried purple potato, a diced roasted banana and a raw yellow potato.", score: 0, pathway: "greedy", room: null },
-    { action: "open fridge", feedback: "You open the fridge, revealing a diced fried block of cheese.", score: 0, pathway: "explore", room: null },
-    { action: "take block of cheese", feedback: "You take the block of cheese from the fridge.\n+1 point!", score: 1, pathway: "greedy", room: null },
-    { action: "take purple potato", feedback: "You take the purple potato from the counter.\n+1 point!", score: 2, pathway: "greedy", room: null },
-    { action: "take diced roasted banana", feedback: "You take the banana from the counter.\n+1 point!", score: 3, pathway: "greedy", room: null },
-    { action: "prepare meal", feedback: "Adding the meal to your inventory.\n+1 point!", score: 4, pathway: "greedy", room: null },
-    { action: "eat meal", feedback: "You eat the meal. Not bad.\n+1 point!\n\u2605 The End \u2605 \u2014 You scored 5 out of 5!", score: 5, pathway: "greedy", room: null }
+    { action: "examine workbench", feedback: "The workbench is undependable.", score: 0, pathway: "explore", room: "Shed" },
+    { action: "examine toolbox", feedback: "The toolbox looks manageable. You can't see inside it because the lid's in your way.", score: 0, pathway: "explore", room: null },
+    { action: "examine toolbox", feedback: "The toolbox looks manageable. You can't see inside it because the lid's in your way.", score: 0, pathway: "explore", room: null },
+    { action: "open toolbox", feedback: "You open the toolbox.", score: 0, pathway: "explore", room: null },
+    { action: "look inside", feedback: "You see nothing unexpected in that direction.", score: 0, pathway: "greedy", room: null },
+    { action: "search toolbox", feedback: "The toolbox is empty.", score: 0, pathway: "greedy", room: null },
+    { action: "examine workbench", feedback: "The workbench is undependable.", score: 0, pathway: "explore", room: null },
+    { action: "open barn door", feedback: "You open barn door.", score: 0, pathway: "explore", room: null },
+    { action: "go south", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, pathway: "explore", room: null },
+    { action: "examine BBQ", feedback: "Useful for grilling things.", score: 0, pathway: "greedy", room: "Backyard" },
+    { action: "open patio door", feedback: "You open patio door.", score: 0, pathway: "explore", room: null },
+    { action: "go south", feedback: "[Corridor] You've come into an ordinary room. Your mind races to think of what kind of room would be ordinary", score: 0, pathway: "greedy", room: null },
+    { action: "go south", feedback: "[Bathroom] Well, here we are in a bathroom. You begin looking for stuff.\n\nYou can see a toilet", score: 0, pathway: "greedy", room: "Corridor" },
+    { action: "examine toilet", feedback: "The toilet is stable.", score: 0, pathway: "greedy", room: "Bathroom" },
+    { action: "search bathroom", feedback: "You can't see any such thing.", score: 0, pathway: "greedy", room: null },
+    { action: "go north", feedback: "[Corridor] You've come into an ordinary room. Your mind races to think of what kind of room would be ordinary", score: 0, pathway: "greedy", room: null },
+    { action: "go west", feedback: "[Bedroom] You find yourself in a bedroom.\n\nYou can see a bed. But the thing is empty, unfortunately.\n\nYou need an exit without a d...", score: 0, pathway: "greedy", room: "Corridor" },
+    { action: "examine bed", feedback: "The bed is undependable.", score: 0, pathway: "greedy", room: "Bedroom" },
+    { action: "go south", feedback: "[Livingroom] You are in a livingroom. A standard kind of place.\n\nYou can see a sofa", score: 0, pathway: "greedy", room: null },
+    { action: "examine sofa", feedback: "The sofa is shaky.", score: 0, pathway: "greedy", room: "Livingroom" },
+    { action: "go north", feedback: "[Bedroom] You find yourself in a bedroom.\n\nYou can see a bed. But the thing is empty, unfortunately.\n\nYou need an exit without a d...", score: 0, pathway: "greedy", room: null },
+    { action: "go east", feedback: "[Corridor] You've come into an ordinary room. Your mind races to think of what kind of room would be ordinary", score: 0, pathway: "greedy", room: "Bedroom" },
+    { action: "go west", feedback: "[Bedroom] You find yourself in a bedroom.\n\nYou can see a bed. But the thing is empty, unfortunately.\n\nYou need an exit without a d...", score: 0, pathway: "greedy", room: "Corridor" },
+    { action: "go south", feedback: "[Livingroom] You are in a livingroom. A standard kind of place.\n\nYou can see a sofa", score: 0, pathway: "greedy", room: "Bedroom" },
+    { action: "go west", feedback: "[Kitchen] You've entered a kitchen. The room seems oddly familiar, as though it were only superficially different from the other r...", score: 0, pathway: "greedy", room: "Livingroom" },
+    { action: "examine cookbook", feedback: "You open the copy of \"Cooking: A Modern Approach (3rd Ed.)\" and start reading:\n\nRecipe #1\n---------\nGather all following ingredients and follow the directions to prepare this tasty...", score: 0, pathway: "greedy", room: "Kitchen" },
+    { action: "get block of cheese", feedback: "You can't see any such thing.", score: 0, pathway: "greedy", room: null },
+    { action: "examine oven", feedback: "Useful for roasting things.", score: 0, pathway: "explore", room: null },
+    { action: "open oven", feedback: "You open the oven.", score: 0, pathway: "greedy", room: null },
+    { action: "look inside", feedback: "You see nothing unexpected in that direction.", score: 0, pathway: "greedy", room: null },
+    { action: "search oven", feedback: "The oven is empty.", score: 0, pathway: "greedy", room: null },
+    { action: "examine stove", feedback: "Useful for frying things.", score: 0, pathway: "greedy", room: null },
+    { action: "search stove", feedback: "There is nothing on the stove.", score: 0, pathway: "greedy", room: null },
+    { action: "go north", feedback: "You have to open the frosted-glass door first.", score: 0, pathway: "greedy", room: null },
+    { action: "open frosted-glass door", feedback: "You open frosted-glass door.", score: 0, pathway: "greedy", room: null },
+    { action: "go north", feedback: "[Pantry] You're now in the pantry.\n\nYou make out a shelf. On the shelf you can make out a salt", score: 0, pathway: "greedy", room: null },
+    { action: "take salt", feedback: "You take the salt from the shelf.", score: 0, pathway: "greedy", room: "Pantry" },
+    { action: "go south", feedback: "[Kitchen] You've entered a kitchen. The room seems oddly familiar, as though it were only superficially different from the other r...", score: 0, pathway: "greedy", room: null },
+    { action: "cook with salt", feedback: "You can't see any such thing.", score: 0, pathway: "greedy", room: "Kitchen" },
+    { action: "examine stove", feedback: "Useful for frying things.", score: 0, pathway: "greedy", room: null },
+    { action: "light stove", feedback: "This dangerous act would achieve little.", score: 0, pathway: "greedy", room: null },
+    { action: "help", feedback: "Available commands:\n  look:                describe the current room\n  goal:                print the goal of this game\n  inventory:           print player's inventory\n  go <dir>: ...", score: 0, pathway: "greedy", room: null },
+    { action: "cook block of cheese with stove", feedback: "You can't see any such thing.", score: 0, pathway: "greedy", room: null },
+    { action: "prepare meal", feedback: "You still miss something.", score: 0, pathway: "greedy", room: null },
+    { action: "prepare meal with salt", feedback: "I didn't understand that sentence.", score: 0, pathway: "greedy", room: null },
+    { action: "prepare meal with block of cheese", feedback: "I didn't understand that sentence.", score: 0, pathway: "greedy", room: null },
+    { action: "prepare meal", feedback: "You still miss something.", score: 0, pathway: "greedy", room: null },
+    { action: "prepare meal with salt and block of cheese", feedback: "I didn't understand that sentence.", score: 0, pathway: "greedy", room: null },
+    { action: "prepare meal with salt and cheese", feedback: "I didn't understand that sentence.", score: 0, pathway: "greedy", room: null },
+    { action: "prepare meal", feedback: "You still miss something.", score: 0, pathway: "greedy", room: null },
+    { action: "prepare meal with salt", feedback: "I didn't understand that sentence.", score: 0, pathway: "greedy", room: null },
+    { action: "cook block of cheese with stove", feedback: "You can't see any such thing.", score: 0, pathway: "greedy", room: null },
+    { action: "open fridge", feedback: "You open the fridge, revealing a block of cheese.", score: 0, pathway: "explore", room: null },
+    { action: "take block of cheese", feedback: "You take the block of cheese from the fridge.\\n+1 point!", score: 1, pathway: "greedy", room: null },
+    { action: "prepare meal", feedback: "Adding the meal to your inventory.\\n+1 point!", score: 2, pathway: "greedy", room: null },
+    { action: "inventory", feedback: "You are carrying:\n  a meal\n  a salt", score: 2, pathway: "greedy", room: null },
+    { action: "eat meal", feedback: "You eat the meal. Not bad.\\n+1 point!", score: 3, pathway: "greedy", room: null },
   ];
 
-  const zsMessages = [
-    { type: "task" },
-    { type: "step", action: "look shelf", feedback: "The shelf is unstable.", score: 0, room: "Pantry" },
-    { type: "step", action: "open door", feedback: "You open frosted-glass door.", score: 0, room: null },
-    { type: "step", action: "go south", feedback: "You arrive in a kitchen with a fridge, oven, table, counter, and stove.", score: 0, room: "Kitchen" },
-    { type: "step", action: "take cookbook", feedback: "You take the cookbook from the table.", score: 0, room: null },
-    { type: "step", action: "go east", feedback: "You are in a livingroom with a sofa.", score: 0, room: "Livingroom" },
-    { type: "step", action: "go west", feedback: "Back in the kitchen.", score: 0, room: "Kitchen" },
-    { type: "step", action: "go east", feedback: "Back to the livingroom.", score: 0, room: "Livingroom" },
-    { type: "step", action: "go north", feedback: "You arrive in a bedroom.", score: 0, room: "Bedroom" },
-    { type: "step", action: "go south", feedback: "Back to the livingroom.", score: 0, room: "Livingroom" },
-    { type: "step", action: "sit on sofa", feedback: "That\u2019s not something you can sit down on.", score: 0, room: null },
-    { type: "step", action: "check cookbook", feedback: "Recipe #1: banana, block of cheese, purple potato.", score: 0, room: null },
-    { type: "step", action: "gather banana block of cheese purple potato", feedback: "That\u2019s not a verb I recognise.", score: 0, room: null },
-    { type: "step", action: "take banana block of cheese purple potato", feedback: "You can\u2019t see any such thing.", score: 0, room: null },
-    { type: "step", action: "look inside fridge", feedback: "You can\u2019t see any such thing.", score: 0, room: null },
-    { type: "step", action: "open fridge", feedback: "You can\u2019t see any such thing.", score: 0, room: null },
-    { type: "step", action: "check inside fridge", feedback: "I only understood you as far as wanting to check inside.", score: 0, room: null },
-    { type: "loop", action: "open fridge / look inside fridge / check inside fridge / inspect fridge", feedback: "Cycles through invalid fridge commands\u2026 none succeed.", count: 66, score: 0 },
-    { type: "end", score: 0 }
+  const zsSteps = [
+    { action: "open wall", feedback: "You can't see any such thing.", score: 0, room: "Shed" },
+    { action: "look around", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "examine wall", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "examine toolbox", feedback: "The toolbox looks manageable. You can't see inside it because the lid's in your way.", score: 0, room: null },
+    { action: "open toolbox", feedback: "You open the toolbox.", score: 0, room: null },
+    { action: "look inside", feedback: "You see nothing unexpected in that direction.", score: 0, room: null },
+    { action: "search toolbox", feedback: "The toolbox is empty.", score: 0, room: null },
+    { action: "search shed", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "search workbench", feedback: "There is nothing on the workbench.", score: 0, room: null },
+    { action: "check workbench drawers", feedback: "I only understood you as far as wanting to check the workbench.", score: 0, room: null },
+    { action: "check workbench", feedback: "The workbench is undependable.", score: 0, room: null },
+    { action: "examine workbench", feedback: "The workbench is undependable.", score: 0, room: null },
+    { action: "look south", feedback: "You see nothing unexpected in that direction.", score: 0, room: null },
+    { action: "examine barn door", feedback: "It is what it is, a barn door. You can't see inside it because the lid's in your way.", score: 0, room: null },
+    { action: "open barn door", feedback: "You open barn door.", score: 0, room: null },
+    { action: "look inside", feedback: "You see nothing unexpected in that direction.", score: 0, room: null },
+    { action: "search barn", feedback: "You find nothing of interest.", score: 0, room: null },
+    { action: "go inside", feedback: "You can't go that way.", score: 0, room: null },
+    { action: "go south", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: null },
+    { action: "examine BBQ", feedback: "Useful for grilling things.", score: 0, room: "Backyard" },
+    { action: "check cookbook", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go inside house", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "look for cookbook", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "search patio", feedback: "Which do you mean, patio door, the patio chair or the patio table?", score: 0, room: null },
+    { action: "search patio table", feedback: "There is nothing on the patio table.", score: 0, room: null },
+    { action: "search patio chair", feedback: "There is nothing on the patio chair.", score: 0, room: null },
+    { action: "search BBQ", feedback: "You can't see inside, since the BBQ is closed.", score: 0, room: null },
+    { action: "open BBQ", feedback: "You open the BBQ.", score: 0, room: null },
+    { action: "search BBQ", feedback: "The BBQ is empty.", score: 0, room: null },
+    { action: "look around", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "help", feedback: "Available commands:\n  look:                describe the current room\n  goal:                print the goal of this game\n  inventory:           print player's inventory\n  go <dir>: ...", score: 0, room: null },
+    { action: "cook", feedback: "What do you want to cook?", score: 0, room: null },
+    { action: "help", feedback: "Available commands:\n  look:                describe the current room\n  goal:                print the goal of this game\n  inventory:           print player's inventory\n  go <dir>: ...", score: 0, room: null },
+    { action: "prepare meal", feedback: "Can only prepare meal in the -= Kitchen =-.", score: 0, room: null },
+    { action: "go north", feedback: "[Shed] Ah, the shed. This is some kind of shed, really great standard vibes in this place, a wonderful standard atmosphere", score: 0, room: "Kitchen" },
+    { action: "go south", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: "Shed" },
+    { action: "go west", feedback: "-= Garden =-\nYou arrive in a garden. A standard kind of place.\n\n\n\nThere is an exit to the east.", score: 0, room: "Backyard" },
+    { action: "go east", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: "Garden" },
+    { action: "go north", feedback: "[Shed] Ah, the shed. This is some kind of shed, really great standard vibes in this place, a wonderful standard atmosphere", score: 0, room: "Backyard" },
+    { action: "examine workbench", feedback: "The workbench is undependable.", score: 0, room: "Shed" },
+    { action: "examine workbench again", feedback: "I only understood you as far as wanting to examine the workbench.", score: 0, room: null },
+    { action: "check workbench", feedback: "The workbench is undependable.", score: 0, room: null },
+    { action: "look around", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go south", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: null },
+    { action: "examine BBQ", feedback: "Useful for grilling things.", score: 0, room: "Backyard" },
+    { action: "cook", feedback: "What do you want to cook?", score: 0, room: null },
+    { action: "help", feedback: "Available commands:\n  look:                describe the current room\n  goal:                print the goal of this game\n  inventory:           print player's inventory\n  go <dir>: ...", score: 0, room: null },
+    { action: "prepare meal", feedback: "Can only prepare meal in the -= Kitchen =-.", score: 0, room: null },
+    { action: "go north", feedback: "[Shed] Ah, the shed. This is some kind of shed, really great standard vibes in this place, a wonderful standard atmosphere", score: 0, room: "Kitchen" },
+    { action: "go south", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: "Shed" },
+    { action: "go west", feedback: "-= Garden =-\nYou arrive in a garden. A standard kind of place.\n\n\n\nThere is an exit to the east.", score: 0, room: "Backyard" },
+    { action: "go east", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: "Garden" },
+    { action: "go north", feedback: "[Shed] Ah, the shed. This is some kind of shed, really great standard vibes in this place, a wonderful standard atmosphere", score: 0, room: "Backyard" },
+    { action: "examine workbench", feedback: "The workbench is undependable.", score: 0, room: "Shed" },
+    { action: "examine workbench again", feedback: "I only understood you as far as wanting to examine the workbench.", score: 0, room: null },
+    { action: "check workbench", feedback: "The workbench is undependable.", score: 0, room: null },
+    { action: "look around", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go south", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: null },
+    { action: "cook", feedback: "What do you want to cook?", score: 0, room: "Backyard" },
+    { action: "look for cookbook", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go north", feedback: "[Shed] Ah, the shed. This is some kind of shed, really great standard vibes in this place, a wonderful standard atmosphere", score: 0, room: null },
+    { action: "examine workbench", feedback: "The workbench is undependable.", score: 0, room: "Shed" },
+    { action: "look around", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go south", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: null },
+    { action: "examine BBQ", feedback: "Useful for grilling things.", score: 0, room: "Backyard" },
+    { action: "cook", feedback: "What do you want to cook?", score: 0, room: null },
+    { action: "help", feedback: "Available commands:\n  look:                describe the current room\n  goal:                print the goal of this game\n  inventory:           print player's inventory\n  go <dir>: ...", score: 0, room: null },
+    { action: "cook meal", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go north", feedback: "[Shed] Ah, the shed. This is some kind of shed, really great standard vibes in this place, a wonderful standard atmosphere", score: 0, room: null },
+    { action: "examine workbench", feedback: "The workbench is undependable.", score: 0, room: "Shed" },
+    { action: "look around", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go south", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: null },
+    { action: "go west", feedback: "-= Garden =-\nYou arrive in a garden. A standard kind of place.\n\n\n\nThere is an exit to the east.", score: 0, room: "Backyard" },
+    { action: "go east", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: "Garden" },
+    { action: "examine BBQ", feedback: "Useful for grilling things.", score: 0, room: "Backyard" },
+    { action: "cook", feedback: "What do you want to cook?", score: 0, room: null },
+    { action: "look for cookbook", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go north", feedback: "[Shed] Ah, the shed. This is some kind of shed, really great standard vibes in this place, a wonderful standard atmosphere", score: 0, room: null },
+    { action: "examine workbench", feedback: "The workbench is undependable.", score: 0, room: "Shed" },
+    { action: "look around", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "help", feedback: "Available commands:\n  look:                describe the current room\n  goal:                print the goal of this game\n  inventory:           print player's inventory\n  go <dir>: ...", score: 0, room: null },
+    { action: "cook meal", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go north", feedback: "You can't go that way.", score: 0, room: null },
+    { action: "go south", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: null },
+    { action: "examine BBQ", feedback: "Useful for grilling things.", score: 0, room: "Backyard" },
+    { action: "cook", feedback: "What do you want to cook?", score: 0, room: null },
+    { action: "look for cookbook", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go west", feedback: "-= Garden =-\nYou arrive in a garden. A standard kind of place.\n\n\n\nThere is an exit to the east.", score: 0, room: null },
+    { action: "go east", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: "Garden" },
+    { action: "cook", feedback: "What do you want to cook?", score: 0, room: "Backyard" },
+    { action: "help", feedback: "Available commands:\n  look:                describe the current room\n  goal:                print the goal of this game\n  inventory:           print player's inventory\n  go <dir>: ...", score: 0, room: null },
+    { action: "cook meal", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go north", feedback: "[Shed] Ah, the shed. This is some kind of shed, really great standard vibes in this place, a wonderful standard atmosphere", score: 0, room: null },
+    { action: "examine workbench", feedback: "The workbench is undependable.", score: 0, room: "Shed" },
+    { action: "look around", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go south", feedback: "[Backyard] You are in a backyard. An usual kind of place.\n\nYou can make out a patio chair", score: 0, room: null },
+    { action: "cook", feedback: "What do you want to cook?", score: 0, room: "Backyard" },
+    { action: "look for cookbook", feedback: "You can't see any such thing.", score: 0, room: null },
+    { action: "go north", feedback: "[Shed] Ah, the shed. This is some kind of shed, really great standard vibes in this place, a wonderful standard atmosphere", score: 0, room: null },
+    { action: "examine workbench", feedback: "The workbench is undependable.", score: 0, room: "Shed" },
   ];
 
   const doraMessages = [{ type: "task" }].concat(
     doraSteps.map(s => ({ type: "step", ...s })),
     [{ type: "end", score: MAX_SCORE }]
+  );
+
+  const zsMessages = [{ type: "task" }].concat(
+    zsSteps.map(s => ({ type: "step", ...s })),
+    [{ type: "end", score: 0 }]
   );
 
   const totalVisual = Math.max(doraMessages.length, zsMessages.length);
@@ -112,13 +239,6 @@
     return wrapper;
   }
 
-  function renderLoop(msg) {
-    const el = document.createElement("div");
-    el.className = "tales-loop";
-    el.innerHTML = `<span class="tales-loop-icon">\u21BB</span> <strong>${escHtml(msg.action)}</strong><br>repeated \u00D7${msg.count} \u2014 ${escHtml(msg.feedback)}`;
-    return el;
-  }
-
   function renderEnd(msg, key) {
     const ref = panels[key];
     if (msg.score >= MAX_SCORE) {
@@ -147,8 +267,6 @@
         ref.scoreEl.classList.add("scored", "flash");
         setTimeout(() => ref.scoreEl.classList.remove("flash"), 450);
       }
-    } else if (msg.type === "loop") {
-      ref.chat.appendChild(renderLoop(msg));
     } else if (msg.type === "end") {
       renderEnd(msg, key);
     }
@@ -192,8 +310,8 @@
     panels.zeroshot.scoreNum.textContent = "0";
     panels.dora.scoreEl.classList.remove("scored");
     panels.zeroshot.scoreEl.classList.remove("scored");
-    panels.dora.roomEl.textContent = "Pantry";
-    panels.zeroshot.roomEl.textContent = "Pantry";
+    panels.dora.roomEl.textContent = "Shed";
+    panels.zeroshot.roomEl.textContent = "Shed";
   }
 
   function tick() {
@@ -233,4 +351,5 @@
 
   updateSpeed();
   schedule(intervalMs);
+
 })();
