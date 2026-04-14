@@ -158,23 +158,19 @@ body {
   position: relative;
   padding-bottom: 0.5rem;
   margin-bottom: 1.2rem;
+  text-align: center;
 }
 
 .title.is-3::after {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 50px;
   height: 3px;
   border-radius: 2px;
   background: linear-gradient(90deg, #6366f1, #8b5cf6);
-}
-
-.has-text-centered .title.is-3::after,
-.title.is-3.has-text-centered::after {
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .title.is-4 {
