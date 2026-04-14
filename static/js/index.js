@@ -95,7 +95,11 @@
 
       refs.armEls.forEach((el, i) => {
         el.classList.toggle("pressed", i === chosen);
+        el.classList.remove("blink");
       });
+      const chosenEl = refs.armEls[chosen];
+      void chosenEl.offsetWidth;
+      chosenEl.classList.add("blink");
 
       refs.totalEl.textContent = run.cumulativeRewards[step];
       refs.choiceEl.textContent = arms[chosen].name;
