@@ -3,11 +3,11 @@
   if (!root) return;
 
   const arms = [
-    { name: "blue", color: "#4f7cff", text: "#ffffff", pulse: "rgba(79,124,255,0.28)" },
-    { name: "green", color: "#2fb36e", text: "#ffffff", pulse: "rgba(47,179,110,0.28)" },
-    { name: "red", color: "#ff6b5e", text: "#ffffff", pulse: "rgba(255,107,94,0.28)" },
-    { name: "yellow", color: "#f6c445", text: "#111827", pulse: "rgba(246,196,69,0.30)" },
-    { name: "purple", color: "#8b5cf6", text: "#ffffff", pulse: "rgba(139,92,246,0.28)" }
+    { name: "blue",   color: "#4f7cff", text: "#ffffff" },
+    { name: "green",  color: "#2fb36e", text: "#ffffff" },
+    { name: "red",    color: "#ff6b5e", text: "#ffffff" },
+    { name: "yellow", color: "#f6c445", text: "#111827" },
+    { name: "purple", color: "#8b5cf6", text: "#ffffff" }
   ];
 
   const bestArm = 4;
@@ -53,10 +53,7 @@
 
   runs.forEach((run) => {
     let total = 0;
-    run.cumulativeRewards = run.rewards.map((value) => {
-      total += value;
-      return total;
-    });
+    run.cumulativeRewards = run.rewards.map((v) => (total += v));
   });
 
   const totalSteps = runs[0].actions.length;
@@ -70,16 +67,14 @@
     const panel = root.querySelector(`[data-run="${run.key}"]`);
     const armsWrap = panel.querySelector(".dora-ep0-arms");
 
-    armsWrap.innerHTML = arms.map((arm, index) => `
-      <div
-        class="dora-ep0-arm ${index === bestArm ? "best" : ""}"
-        data-arm="${index}"
-        aria-hidden="true"
-        style="background:${arm.color}; color:${arm.text}; --pulse:${arm.pulse};"
-      >
-        ${arm.name}
-      </div>
-    `).join("");
+    armsWrap.innerHTML = arms.map((arm, i) =>
+      `<div class="dora-ep0-arm${i === bestArm ? " best" : ""}"
+            data-arm="${i}"
+            style="--arm-color:${arm.color}; --arm-text:${arm.text};
+                   background:${arm.color}; color:${arm.text};
+                   border-color:${arm.color};"
+       >${arm.name}</div>`
+    ).join("");
 
     panelRefs[run.key] = {
       armEls: Array.from(armsWrap.querySelectorAll(".dora-ep0-arm")),
@@ -94,33 +89,19 @@
     progressFill.style.width = `${((step + 1) / totalSteps) * 100}%`;
 
     runs.forEach((run) => {
-      const currentArm = run.actions[step];
+      const chosen = run.actions[step];
       const reward = run.rewards[step];
       const refs = panelRefs[run.key];
 
-      refs.armEls.forEach((el, index) => {
-        const isActive = index === currentArm;
-        el.classList.toggle("active", isActive);
-        el.classList.toggle("inactive", !isActive);
-        el.classList.remove("blink");
+      refs.armEls.forEach((el, i) => {
+        el.classList.toggle("pressed", i === chosen);
       });
 
       refs.totalEl.textContent = run.cumulativeRewards[step];
-      refs.choiceEl.textContent = arms[currentArm].name;
+      refs.choiceEl.textContent = arms[chosen].name;
       refs.rewardEl.textContent = reward ? "+1 reward" : "0 reward";
       refs.rewardEl.classList.toggle("win", Boolean(reward));
       refs.rewardEl.classList.toggle("loss", !reward);
-
-      refs.rewardEl.classList.remove("pop");
-      void refs.rewardEl.offsetWidth;
-      refs.rewardEl.classList.add("pop");
-
-      if (run.key === "llm") {
-        const pulseEl = refs.armEls[currentArm];
-        pulseEl.classList.remove("blink");
-        void pulseEl.offsetWidth;
-        pulseEl.classList.add("blink");
-      }
     });
   }
 
@@ -141,8 +122,7 @@
 
   function updateSpeedReadout() {
     if (!speedReadout) return;
-    const speedFactor = BASE_STEP_MS / stepMs;
-    speedReadout.textContent = `${speedFactor.toFixed(1)}x`;
+    speedReadout.textContent = `${(BASE_STEP_MS / stepMs).toFixed(1)}x`;
   }
 
   function scheduleNext(delay) {
@@ -153,7 +133,6 @@
   function tick() {
     render(step);
     step += 1;
-
     if (step >= totalSteps) {
       step = 0;
       scheduleNext(RESET_MS);
