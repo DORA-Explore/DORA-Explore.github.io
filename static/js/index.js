@@ -123,6 +123,8 @@
   let stepMs = BASE_STEP_MS;
   let step = 1;
   let timer = null;
+  let paused = false;
+  const pauseBtn = root.querySelector("[data-mab-pause]");
 
   function updateSpeedReadout() {
     if (!speedReadout) return;
@@ -131,6 +133,7 @@
 
   function scheduleNext(delay) {
     if (timer !== null) window.clearTimeout(timer);
+    if (paused) return;
     timer = window.setTimeout(tick, delay);
   }
 
@@ -150,7 +153,16 @@
     speedSlider.addEventListener("input", () => {
       stepMs = sliderToStepMs(speedSlider.value);
       updateSpeedReadout();
-      scheduleNext(stepMs);
+      if (!paused) scheduleNext(stepMs);
+    });
+  }
+
+  if (pauseBtn) {
+    pauseBtn.addEventListener("click", () => {
+      paused = !paused;
+      pauseBtn.textContent = paused ? "\u25B6" : "\u23F8";
+      pauseBtn.setAttribute("aria-label", paused ? "Play" : "Pause");
+      if (!paused) scheduleNext(stepMs);
     });
   }
 

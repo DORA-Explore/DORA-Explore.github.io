@@ -256,6 +256,7 @@
                 <div class="dora-ep0-progress"><div class="dora-ep0-progress-fill"></div></div>
               </div>
               <div class="dora-ep0-controls">
+                <button class="anim-pause-btn" data-mab-pause aria-label="Pause">&#9208;</button>
                 <span class="dora-ep0-speed-side">slow</span>
                 <input
                   id="dora-ep0-speed"
@@ -346,6 +347,7 @@
               <div class="tales-progress"><div class="tales-progress-fill"></div></div>
             </div>
             <div class="tales-controls">
+              <button class="anim-pause-btn" data-tales-pause aria-label="Pause">&#9208;</button>
               <span class="tales-speed-side">slow</span>
               <input
                 class="tales-speed-slider"
@@ -365,7 +367,7 @@
             <div class="tales-panel" data-tales-run="dora">
               <div class="tales-panel-head">
                 <div class="tales-agent">DORA Explorer</div>
-                <div class="tales-score">Score <strong>0</strong> / 3</div>
+                <div class="tales-score">Score <strong>0</strong> / 5</div>
               </div>
               <div class="tales-location"><span data-tales-room>Pantry</span></div>
               <div class="tales-chat-scroll">
@@ -377,7 +379,7 @@
             <div class="tales-panel" data-tales-run="zeroshot">
               <div class="tales-panel-head">
                 <div class="tales-agent">Zero-shot</div>
-                <div class="tales-score">Score <strong>0</strong> / 3</div>
+                <div class="tales-score">Score <strong>0</strong> / 5</div>
               </div>
               <div class="tales-location"><span data-tales-room>Pantry</span></div>
               <div class="tales-chat-scroll">
@@ -388,8 +390,8 @@
           </div>
         </div>
         <p class="has-text-centered is-size-7 caption">
-          <b>Figure 3.</b> TextWorld Cooking Level 4: DORA Explorer systematically explores the environment
-          and completes the task (3/3), while Zero-shot gets stuck repeating the same action (0/3).
+          <b>Figure 3.</b> TextWorld Cooking Level 8: DORA Explorer systematically explores rooms, gathers ingredients,
+          and completes the recipe (5/5), while Zero-shot gets stuck in a fridge-checking loop (0/5).
         </p>
 
       </div>

@@ -408,6 +408,30 @@ tr.model-divider > td {
   }
 }
 
+/* Shared pause/play button for animations */
+.anim-pause-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  background: #fff;
+  color: #374151;
+  font-size: 15px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+  line-height: 1;
+  padding: 0;
+}
+
+.anim-pause-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
 /* ===== TALES Chat Animation ===== */
 #tales-chat-anim {
   margin: 1.5rem 0 0;
@@ -459,7 +483,7 @@ tr.model-divider > td {
   width: 0%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #2fb36e 0%, #10b981 100%);
+  background: linear-gradient(90deg, #8b5cf6 0%, #06b6d4 50%, #10b981 100%);
   transition: width 0.12s linear;
 }
 
@@ -531,12 +555,22 @@ tr.model-divider > td {
 
 .tales-panel {
   background: #fff;
-  border: 1px solid #e5e7eb;
+  border: 2px solid #e5e7eb;
   border-radius: 16px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 16px rgba(17, 17, 17, 0.04);
+}
+
+.tales-panel[data-tales-run="dora"] {
+  border-color: #8b5cf6;
+  background: linear-gradient(180deg, #faf5ff 0%, #fff 40%);
+}
+
+.tales-panel[data-tales-run="zeroshot"] {
+  border-color: #f59e0b;
+  background: linear-gradient(180deg, #fffbeb 0%, #fff 40%);
 }
 
 .tales-panel-head {
@@ -551,6 +585,14 @@ tr.model-divider > td {
   font-size: 16px;
   font-weight: 800;
   letter-spacing: -0.02em;
+}
+
+.tales-panel[data-tales-run="dora"] .tales-agent {
+  color: #6d28d9;
+}
+
+.tales-panel[data-tales-run="zeroshot"] .tales-agent {
+  color: #b45309;
 }
 
 .tales-score {
@@ -577,8 +619,8 @@ tr.model-divider > td {
   display: inline-block;
   padding: 3px 10px;
   border-radius: 999px;
-  background: #f3f4f6;
-  color: #374151;
+  background: linear-gradient(135deg, #e0e7ff, #ddd6fe);
+  color: #3730a3;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -616,6 +658,24 @@ tr.model-divider > td {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Task description message */
+.tales-task-msg {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border: 1px solid #f59e0b;
+  color: #78350f;
+  font-size: 13px;
+  line-height: 1.45;
+  animation: talesFadeIn 0.3s ease-out;
+}
+
+.tales-task-icon {
+  font-size: 16px;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
 /* Action bubble (outgoing, right-aligned) */
 .tales-action {
   align-self: flex-end;
@@ -629,18 +689,21 @@ tr.model-divider > td {
 }
 
 .tales-action.explore {
-  background: #ede9fe;
+  background: linear-gradient(135deg, #ede9fe, #ddd6fe);
   color: #5b21b6;
+  border: 1px solid #c4b5fd;
 }
 
 .tales-action.greedy {
-  background: #e0f2fe;
-  color: #0369a1;
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  color: #0c4a6e;
+  border: 1px solid #7dd3fc;
 }
 
 .tales-action.zeroshot {
-  background: #f3f4f6;
-  color: #374151;
+  background: linear-gradient(135deg, #fff7ed, #fed7aa);
+  color: #92400e;
+  border: 1px solid #fdba74;
 }
 
 /* Pathway badge inside action */
@@ -682,23 +745,30 @@ tr.model-divider > td {
 
 .tales-feedback.score-up {
   border-color: #10b981;
-  background: #ecfdf5;
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
   color: #065f46;
-  font-weight: 600;
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.15);
 }
 
 /* Loop collapse indicator */
 .tales-loop {
   align-self: center;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: #fef2f2;
-  border: 1px dashed #fca5a5;
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fef2f2, #fecaca);
+  border: 2px dashed #f87171;
   color: #991b1b;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
+  line-height: 1.5;
   animation: talesFadeIn 0.3s ease-out;
+}
+
+.tales-loop-icon {
+  font-size: 18px;
+  vertical-align: middle;
 }
 
 /* End banners */
@@ -714,16 +784,18 @@ tr.model-divider > td {
 
 .tales-banner.win {
   display: block;
-  background: #dcfce7;
-  color: #166534;
-  border: 1px solid #86efac;
+  background: linear-gradient(135deg, #d1fae5, #6ee7b7);
+  color: #064e3b;
+  border: 2px solid #34d399;
+  font-size: 15px;
 }
 
 .tales-banner.fail {
   display: block;
-  background: #fef2f2;
-  color: #991b1b;
-  border: 1px solid #fca5a5;
+  background: linear-gradient(135deg, #fee2e2, #fca5a5);
+  color: #7f1d1d;
+  border: 2px solid #f87171;
+  font-size: 15px;
 }
 
 /* Score flash animation */
