@@ -1,12 +1,15 @@
 /* ===== Global ===== */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
 }
 
 body {
   font-family: 'Inter', 'Noto Sans', sans-serif;
   color: #1a1a2e;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 .section {
