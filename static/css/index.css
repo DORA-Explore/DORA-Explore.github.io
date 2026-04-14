@@ -407,3 +407,342 @@ tr.model-divider > td {
     font-size: 10px;
   }
 }
+
+/* ===== TALES Chat Animation ===== */
+#tales-chat-anim {
+  margin: 1.5rem 0 0;
+}
+
+#tales-chat-anim * {
+  box-sizing: border-box;
+}
+
+.tales-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.tales-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.tales-step-chip {
+  display: inline-flex;
+  align-items: center;
+  min-width: 90px;
+  padding: 8px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.05);
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tales-progress {
+  flex: 1;
+  max-width: 360px;
+  height: 5px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  overflow: hidden;
+}
+
+.tales-progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2fb36e 0%, #10b981 100%);
+  transition: width 0.12s linear;
+}
+
+.tales-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tales-speed-side {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b7280;
+  font-weight: 700;
+}
+
+.tales-speed-slider {
+  width: min(200px, 50vw);
+  appearance: none;
+  height: 5px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  outline: none;
+}
+
+.tales-speed-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 0;
+  background: #111;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(17, 17, 17, 0.18);
+}
+
+.tales-speed-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 0;
+  background: #111;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(17, 17, 17, 0.18);
+}
+
+.tales-speed-chip {
+  min-width: 52px;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #111;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* Side-by-side panels */
+.tales-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.tales-panel {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 16px rgba(17, 17, 17, 0.04);
+}
+
+.tales-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.tales-agent {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.tales-score {
+  font-size: 13px;
+  color: #4b5563;
+  white-space: nowrap;
+}
+
+.tales-score strong {
+  color: #111;
+  font-size: 15px;
+}
+
+.tales-score.scored strong {
+  color: #059669;
+}
+
+/* Location chip */
+.tales-location {
+  margin-bottom: 8px;
+}
+
+.tales-location span {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Scrollable chat area */
+.tales-chat-scroll {
+  flex: 1;
+  max-height: 360px;
+  min-height: 260px;
+  overflow-y: auto;
+  border: 1px solid #f1f5f9;
+  border-radius: 10px;
+  background: #fafbfc;
+  padding: 10px;
+}
+
+.tales-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Chat message pair (action + feedback) */
+.tales-msg {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: talesFadeIn 0.25s ease-out;
+}
+
+@keyframes talesFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Action bubble (outgoing, right-aligned) */
+.tales-action {
+  align-self: flex-end;
+  max-width: 85%;
+  padding: 7px 12px;
+  border-radius: 14px 14px 4px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.tales-action.explore {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+.tales-action.greedy {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.tales-action.zeroshot {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Pathway badge inside action */
+.tales-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.tales-badge.explore {
+  background: #8b5cf6;
+  color: #fff;
+}
+
+.tales-badge.greedy {
+  background: #94a3b8;
+  color: #fff;
+}
+
+/* Feedback bubble (incoming, left-aligned) */
+.tales-feedback {
+  align-self: flex-start;
+  max-width: 85%;
+  padding: 7px 12px;
+  border-radius: 14px 14px 14px 4px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+  font-size: 12px;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.tales-feedback.score-up {
+  border-color: #10b981;
+  background: #ecfdf5;
+  color: #065f46;
+  font-weight: 600;
+}
+
+/* Loop collapse indicator */
+.tales-loop {
+  align-self: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #fef2f2;
+  border: 1px dashed #fca5a5;
+  color: #991b1b;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  animation: talesFadeIn 0.3s ease-out;
+}
+
+/* End banners */
+.tales-banner {
+  display: none;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  margin-top: 10px;
+}
+
+.tales-banner.win {
+  display: block;
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.tales-banner.fail {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+/* Score flash animation */
+@keyframes talesScoreFlash {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.2); color: #059669; }
+  100% { transform: scale(1); }
+}
+
+.tales-score.flash strong {
+  animation: talesScoreFlash 0.4s ease;
+}
+
+@media (max-width: 700px) {
+  .tales-grid {
+    grid-template-columns: 1fr;
+  }
+  .tales-chat-scroll {
+    max-height: 280px;
+    min-height: 200px;
+  }
+}

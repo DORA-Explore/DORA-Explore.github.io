@@ -338,6 +338,60 @@
             observation and outputs a textual action at each step.
           </p>
         </div>
+        <!-- TALES Animation: DORA vs Zero-shot on TextWorld Cooking -->
+        <div id="tales-chat-anim" aria-label="TALES cooking task animation">
+          <div class="tales-header">
+            <div class="tales-status-row">
+              <div class="tales-step-chip">Step <span data-tales-step>0</span></div>
+              <div class="tales-progress"><div class="tales-progress-fill"></div></div>
+            </div>
+            <div class="tales-controls">
+              <span class="tales-speed-side">slow</span>
+              <input
+                class="tales-speed-slider"
+                type="range"
+                min="1"
+                max="100"
+                value="40"
+                data-tales-speed
+                aria-label="Animation speed"
+              >
+              <span class="tales-speed-side">fast</span>
+              <div class="tales-speed-chip"><span data-tales-speed-readout>1.0x</span></div>
+            </div>
+          </div>
+
+          <div class="tales-grid">
+            <div class="tales-panel" data-tales-run="dora">
+              <div class="tales-panel-head">
+                <div class="tales-agent">DORA Explorer</div>
+                <div class="tales-score">Score <strong>0</strong> / 3</div>
+              </div>
+              <div class="tales-location"><span data-tales-room>Pantry</span></div>
+              <div class="tales-chat-scroll">
+                <div class="tales-chat"></div>
+              </div>
+              <div class="tales-banner"></div>
+            </div>
+
+            <div class="tales-panel" data-tales-run="zeroshot">
+              <div class="tales-panel-head">
+                <div class="tales-agent">Zero-shot</div>
+                <div class="tales-score">Score <strong>0</strong> / 3</div>
+              </div>
+              <div class="tales-location"><span data-tales-room>Pantry</span></div>
+              <div class="tales-chat-scroll">
+                <div class="tales-chat"></div>
+              </div>
+              <div class="tales-banner"></div>
+            </div>
+          </div>
+        </div>
+        <p class="has-text-centered is-size-7 caption">
+          <b>Figure 3.</b> TextWorld Cooking Level 4: DORA Explorer systematically explores the environment
+          and completes the task (3/3), while Zero-shot gets stuck repeating the same action (0/3).
+        </p>
+
       </div>
     </div>
   </div>
@@ -689,5 +743,6 @@
 
 <script src="static/js/fontawesome.all.min.js"></script>
 <script src="static/js/index.js"></script>
+<script src="static/js/tales-anim.js"></script>
 </body>
 </html>
