@@ -15,6 +15,77 @@ body {
 .section {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
+  scroll-margin-top: 52px;
+}
+
+/* ===== Sticky Navbar ===== */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(30, 27, 75, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+  height: 52px;
+}
+
+.site-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.site-nav-brand {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.site-nav-brand:hover {
+  color: #c7d2fe;
+}
+
+.site-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.site-nav-links a {
+  color: #c7d2fe;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.site-nav-links a:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .site-nav-links a {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+  .site-nav-brand {
+    font-size: 15px;
+  }
 }
 
 .section:nth-child(even) {
@@ -24,6 +95,7 @@ body {
 /* ===== Hero ===== */
 .hero-gradient {
   background: linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #4338ca 60%, #6366f1 100%);
+  padding-top: 52px;
   padding-bottom: 1rem;
 }
 
