@@ -114,3 +114,303 @@ tr.model-divider > td {
   border: 1px solid #dbdbdb;
   border-radius: 6px;
 }
+
+/* MAB rollout animation figure */
+#dora-ep0-parallel {
+  background: #ffffff;
+  color: #111111;
+  margin: 1.5rem 0 0;
+}
+
+#dora-ep0-parallel * {
+  box-sizing: border-box;
+}
+
+#dora-ep0-parallel .dora-ep0-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+#dora-ep0-parallel .dora-ep0-header {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+#dora-ep0-parallel .dora-ep0-kicker {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+#dora-ep0-parallel .dora-ep0-title {
+  margin: 0;
+  font-size: clamp(24px, 3.2vw, 34px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #111111;
+}
+
+#dora-ep0-parallel .dora-ep0-subtitle {
+  margin: 10px 0 16px;
+  color: #4b5563;
+  font-size: 16px;
+}
+
+#dora-ep0-parallel .dora-ep0-step-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  padding: 12px 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(17, 17, 17, 0.06);
+  font-size: 15px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 14px;
+}
+
+#dora-ep0-parallel .dora-ep0-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+#dora-ep0-parallel .dora-ep0-speed-side {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b7280;
+  font-weight: 700;
+}
+
+#dora-ep0-parallel .dora-ep0-speed-slider {
+  width: min(280px, 72vw);
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  outline: none;
+}
+
+#dora-ep0-parallel .dora-ep0-speed-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 0;
+  background: #111111;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.18);
+}
+
+#dora-ep0-parallel .dora-ep0-speed-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 0;
+  background: #111111;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.18);
+}
+
+#dora-ep0-parallel .dora-ep0-speed-chip {
+  min-width: 64px;
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #111111;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+#dora-ep0-parallel .dora-ep0-progress {
+  width: min(520px, 100%);
+  height: 6px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: #f1f5f9;
+  overflow: hidden;
+}
+
+#dora-ep0-parallel .dora-ep0-progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #8b5cf6 0%, #4f7cff 100%);
+  transition: width 0.12s linear;
+}
+
+#dora-ep0-parallel .dora-ep0-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+#dora-ep0-parallel .dora-ep0-panel {
+  background: #ffffff;
+  border: 1px solid #ececec;
+  border-radius: 28px;
+  padding: 22px;
+  box-shadow: 0 18px 40px rgba(17, 17, 17, 0.06);
+}
+
+#dora-ep0-parallel .dora-ep0-panel-head,
+#dora-ep0-parallel .dora-ep0-panel-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+#dora-ep0-parallel .dora-ep0-agent {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+#dora-ep0-parallel .dora-ep0-total {
+  white-space: nowrap;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+#dora-ep0-parallel .dora-ep0-total strong {
+  color: #111111;
+  font-size: 16px;
+}
+
+#dora-ep0-parallel .dora-ep0-arms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin: 22px auto 18px;
+}
+
+#dora-ep0-parallel .dora-ep0-arm {
+  width: clamp(78px, 8vw, 106px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  text-align: center;
+  line-height: 1.05;
+  font-size: clamp(14px, 1.3vw, 16px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  box-shadow: 0 12px 24px rgba(17, 17, 17, 0.12);
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    opacity 0.16s ease,
+    filter 0.16s ease;
+  user-select: none;
+}
+
+#dora-ep0-parallel .dora-ep0-arm.best {
+  outline: 3px solid #111111;
+  outline-offset: 4px;
+}
+
+#dora-ep0-parallel .dora-ep0-arm.inactive {
+  opacity: 0.26;
+  filter: saturate(0.82);
+  transform: scale(0.96);
+}
+
+#dora-ep0-parallel .dora-ep0-arm.active {
+  opacity: 1;
+  transform: scale(1.03);
+  box-shadow:
+    0 18px 36px rgba(17, 17, 17, 0.16),
+    0 0 0 2px rgba(17, 17, 17, 0.05);
+}
+
+#dora-ep0-parallel .dora-ep0-arm.blink {
+  animation: doraEp0Blink 0.18s ease-out;
+}
+
+@keyframes doraEp0Blink {
+  0% {
+    transform: scale(1.03);
+    box-shadow:
+      0 18px 36px rgba(17, 17, 17, 0.16),
+      0 0 0 2px rgba(17, 17, 17, 0.05);
+  }
+  45% {
+    transform: scale(1.13);
+    box-shadow:
+      0 0 0 12px var(--pulse),
+      0 20px 40px rgba(17, 17, 17, 0.18);
+  }
+  100% {
+    transform: scale(1.03);
+    box-shadow:
+      0 18px 36px rgba(17, 17, 17, 0.16),
+      0 0 0 2px rgba(17, 17, 17, 0.05);
+  }
+}
+
+#dora-ep0-parallel .dora-ep0-choice {
+  font-size: 15px;
+  color: #4b5563;
+}
+
+#dora-ep0-parallel .dora-ep0-choice strong {
+  color: #111111;
+  text-transform: capitalize;
+}
+
+#dora-ep0-parallel .dora-ep0-reward-pill {
+  min-width: 108px;
+  text-align: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #f5f5f5;
+  color: #111111;
+  font-size: 14px;
+  font-weight: 800;
+  transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+#dora-ep0-parallel .dora-ep0-reward-pill.win {
+  background: #ecfdf5;
+  color: #065f46;
+  transform: translateY(-1px);
+}
+
+#dora-ep0-parallel .dora-ep0-reward-pill.loss {
+  background: #f8fafc;
+  color: #475569;
+}
+
+#dora-ep0-parallel .dora-ep0-reward-pill.pop {
+  animation: doraEp0Pop 0.22s ease;
+}
+
+@keyframes doraEp0Pop {
+  0% { transform: scale(0.96); }
+  60% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 900px) {
+  #dora-ep0-parallel .dora-ep0-grid {
+    grid-template-columns: 1fr;
+  }
+}

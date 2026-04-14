@@ -248,9 +248,62 @@
           DORA achieves UCB-competitive performance with zero suffix failures.
         </p>
 
-        <div class="placeholder-figure" id="figure2-placeholder">
-          <p><i class="far fa-image"></i>&ensp;Figure 2 &mdash; MAB arm selection &amp; optimal arm comparison</p>
+        <div id="dora-ep0-parallel" aria-label="MAB arm selection animation">
+          <div class="dora-ep0-shell">
+            <div class="dora-ep0-header">
+              <div class="dora-ep0-kicker">Episode 0 • parallel rollout</div>
+              <h4 class="dora-ep0-title">DORA vs LLM at T=0</h4>
+              <p class="dora-ep0-subtitle">Best arm in both runs: <strong>purple</strong></p>
+              <div class="dora-ep0-step-chip">t = <span data-step-value>0</span> / 199</div>
+              <div class="dora-ep0-controls">
+                <span class="dora-ep0-speed-side">slow</span>
+                <input
+                  id="dora-ep0-speed"
+                  class="dora-ep0-speed-slider"
+                  type="range"
+                  min="1"
+                  max="100"
+                  value="55"
+                  data-speed-slider
+                  aria-label="Animation speed"
+                >
+                <span class="dora-ep0-speed-side">fast</span>
+                <div class="dora-ep0-speed-chip"><span data-speed-readout>1.0x</span></div>
+              </div>
+              <div class="dora-ep0-progress"><div class="dora-ep0-progress-fill"></div></div>
+            </div>
+
+            <div class="dora-ep0-grid">
+              <div class="dora-ep0-panel" data-run="dora">
+                <div class="dora-ep0-panel-head">
+                  <div class="dora-ep0-agent">DORA</div>
+                  <div class="dora-ep0-total">total reward <strong>0</strong></div>
+                </div>
+                <div class="dora-ep0-arms"></div>
+                <div class="dora-ep0-panel-foot">
+                  <div class="dora-ep0-choice">chooses <strong>-</strong></div>
+                  <div class="dora-ep0-reward-pill">reward 0</div>
+                </div>
+              </div>
+
+              <div class="dora-ep0-panel" data-run="llm">
+                <div class="dora-ep0-panel-head">
+                  <div class="dora-ep0-agent">LLM at T=0</div>
+                  <div class="dora-ep0-total">total reward <strong>0</strong></div>
+                </div>
+                <div class="dora-ep0-arms"></div>
+                <div class="dora-ep0-panel-foot">
+                  <div class="dora-ep0-choice">chooses <strong>-</strong></div>
+                  <div class="dora-ep0-reward-pill">reward 0</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <p class="has-text-centered is-size-7 caption">
+          <b>Figure 2.</b> MAB arm-selection dynamics: DORA progressively converges to the optimal arm
+          while vanilla LLM at T=0 remains stuck.
+        </p>
 
         <div class="content has-text-justified">
           <p>
@@ -635,5 +688,6 @@
 </footer>
 
 <script src="static/js/fontawesome.all.min.js"></script>
+<script src="static/js/index.js"></script>
 </body>
 </html>
