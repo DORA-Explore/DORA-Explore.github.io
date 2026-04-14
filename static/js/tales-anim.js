@@ -8,7 +8,6 @@
   const doraSteps = [
     { action: "examine workbench", feedback: "The workbench is undependable.", score: 0, pathway: "explore", room: "Shed" },
     { action: "examine toolbox", feedback: "The toolbox looks manageable. You can't see inside it because the lid's in your way.", score: 0, pathway: "explore", room: null },
-    { action: "examine toolbox", feedback: "The toolbox looks manageable. You can't see inside it because the lid's in your way.", score: 0, pathway: "explore", room: null },
     { action: "open toolbox", feedback: "You open the toolbox.", score: 0, pathway: "explore", room: null },
     { action: "look inside", feedback: "You see nothing unexpected in that direction.", score: 0, pathway: "greedy", room: null },
     { action: "search toolbox", feedback: "The toolbox is empty.", score: 0, pathway: "greedy", room: null },
