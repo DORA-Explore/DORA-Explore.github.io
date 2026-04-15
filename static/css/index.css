@@ -279,6 +279,45 @@ tr.model-divider > td {
   color: #9ca3af;
 }
 
+/* ===== Results/Ablations dropdowns ===== */
+.results-dropdown {
+  margin: 0 0 1rem;
+  border: 1px solid #e9d5ff;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.results-dropdown > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  color: #581c87;
+  background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+  border-bottom: 1px solid #e9d5ff;
+}
+
+.results-dropdown > summary::-webkit-details-marker {
+  display: none;
+}
+
+.results-dropdown > summary::after {
+  content: '+';
+  float: right;
+  font-weight: 800;
+}
+
+.results-dropdown[open] > summary::after {
+  content: '-';
+}
+
+.results-dropdown > .table-container {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 /* ===== Overview figure ===== */
 .overview-figure {
   margin: 1.5rem 0 0;
