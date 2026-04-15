@@ -22,7 +22,6 @@
     </a>
     <div class="site-nav-links">
       <a href="#abstract">Abstract</a>
-      <a href="#overview">Overview</a>
       <a href="#method">Method</a>
       <a href="#experiments">Experiments</a>
       <a href="#results">Results</a>
@@ -87,22 +86,11 @@
   </div>
 </section>
 
-<!-- Overview Figure -->
-<section class="section" id="overview">
+<!-- DORA Teaser Diagram -->
+<section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Overview</h2>
-        <div class="content has-text-justified">
-          <p>
-            Prompt and temperature-based sampling can fail by repeating previously explored
-            actions and getting stuck in loops. DORA avoids these pitfalls through a dynamic
-            exploration strategy that decides whether to act greedily or explore based on the
-            exploration degree &lambda;, generates candidate actions, scores each one, and samples
-            based on the derived &lambda;-probabilities. This results in more exploration and better
-            terminal rewards.
-          </p>
-        </div>
         <figure class="overview-figure">
           <img
             src="static/img/overview-figure.png"
