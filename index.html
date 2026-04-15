@@ -115,6 +115,41 @@
     <div class="columns is-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <p>
+            DORA Explorer is a modular, plug-and-play inference-time framework.
+            It works in four stages:
+          </p>
+          <ol>
+            <li>
+              <b>Greedy or Explore Decision.</b>
+              At each step <i>t</i>, the agent receives context
+              <i>c&nbsp;=&nbsp;[H;&nbsp;o<sub>t</sub>]</i> and samples a decision
+              <i>d&nbsp;&sim;&nbsp;&pi;<sub>d</sub>(c,&nbsp;&tau;<sub>d</sub>)</i>
+              on whether to act greedily or to explore.
+            </li>
+            <li>
+              <b>Candidate Action Generation.</b>
+              If exploring, DORA generates <i>n<sub>C</sub></i> candidate actions via list-level
+              prompting. Joint list generation forces the model to explore the breadth of its
+              distribution, naturally producing diverse candidates. Previously used actions
+              are filtered out.
+            </li>
+            <li>
+              <b>Action Scoring.</b>
+              Each candidate is scored with a combination of normalised mean log-probability
+              (confidence) and variance of log-probability (consistency):
+              <i>Score(a,&nbsp;&alpha;)&nbsp;=&nbsp;&alpha;&nbsp;&middot;&nbsp;&mu;&#771;(a)&nbsp;&minus;&nbsp;(1&minus;&alpha;)&nbsp;&middot;&nbsp;&sigma;&#771;&sup2;(a)</i>.
+            </li>
+            <li>
+              <b>&lambda;-Probability Sampling.</b>
+              Scores are converted to sampling probabilities via a softmax controlled by the
+              exploration parameter &lambda;. Lower &lambda; gives more exploration (flatter distribution);
+              higher &lambda; gives more exploitation (sharper distribution). The final action is
+              sampled from this categorical distribution.
+            </li>
+          </ol>
+        </div>
 
         <!-- Algorithm 1 -->
         <div class="algorithm-box">
@@ -142,6 +177,20 @@
 19: return a*_t
 </pre>
           </div>
+        </div>
+
+        <div class="content has-text-justified">
+          <h3 class="title is-4">Selecting &lambda;</h3>
+          <p>
+            <b>&lambda;-Scheduler.</b>&ensp;An exponential schedule transitions from exploration to exploitation:
+            <i>&lambda;<sub>exp</sub>(t)&nbsp;=&nbsp;&lambda;<sub>min</sub>&nbsp;+&nbsp;(&lambda;<sub>max</sub>&nbsp;&minus;&nbsp;&lambda;<sub>min</sub>)&nbsp;&middot;&nbsp;(e<sup>kt/T</sup>&nbsp;&minus;&nbsp;1)&nbsp;/&nbsp;(e<sup>k</sup>&nbsp;&minus;&nbsp;1)</i>.
+            This works well for simpler tasks (MAB) where exploration needs decrease over time.
+          </p>
+          <p>
+            <b>Auto-Explorer.</b>&ensp;The LLM itself determines the exploration degree by sampling
+            <i>&lambda;&nbsp;&sim;&nbsp;&pi;<sub>&lambda;</sub>(c,&nbsp;&tau;<sub>&lambda;</sub>)</i> conditioned on context.
+            This is better suited for complex tasks (TALES) where exploration requirements vary dynamically.
+          </p>
         </div>
       </div>
     </div>
@@ -366,154 +415,154 @@
       <div class="column">
         <h2 class="title is-3">Results on TALES</h2>
 
-        <details class="results-dropdown" open>
-          <summary>Table 2 - Performance on TALES environments</summary>
-          <div class="table-container">
-            <table class="table is-bordered is-striped is-narrow is-fullwidth">
-              <thead>
-                <tr>
-                  <th>Model</th>
-                  <th>Setting</th>
-                  <th>TextWorld</th>
-                  <th>TW Express</th>
-                  <th>AlfWorld</th>
-                  <th>ScienceWorld</th>
-                  <th>Jericho</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Qwen-2.5 7B -->
-                <tr>
-                  <td rowspan="5"><b>Qwen-2.5 7B</b></td>
-                  <td>Zero-shot</td>
-                  <td>29.20<small>&plusmn;1.92</small></td>
-                  <td>48.93<small>&plusmn;1.69</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>13.49<small>&plusmn;0.12</small></td>
-                  <td>0.66<small>&plusmn;0.04</small></td>
-                </tr>
-                <tr>
-                  <td>Chain of Thought</td>
-                  <td>24.89<small>&plusmn;0.91</small></td>
-                  <td>37.44<small>&plusmn;0.00</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>9.81<small>&plusmn;0.18</small></td>
-                  <td>1.58<small>&plusmn;0.03</small></td>
-                </tr>
-                <tr>
-                  <td>Tree of Thought</td>
-                  <td>11.39<small>&plusmn;0.83</small></td>
-                  <td>45.90<small>&plusmn;0.21</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>10.10<small>&plusmn;0.00</small></td>
-                  <td>1.40<small>&plusmn;0.00</small></td>
-                </tr>
-                <tr>
-                  <td>Prompt Explore</td>
-                  <td>23.12<small>&plusmn;1.29</small></td>
-                  <td>47.81<small>&plusmn;0.00</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>13.21<small>&plusmn;0.34</small></td>
-                  <td>1.27<small>&plusmn;0.04</small></td>
-                </tr>
-                <tr class="is-dora-row">
-                  <td><b>DORA (Ours)</b></td>
-                  <td><b>45.40</b><small>&plusmn;1.68</small></td>
-                  <td><b>51.17</b><small>&plusmn;3.38</small></td>
-                  <td><b>2.78</b><small>&plusmn;2.78</small></td>
-                  <td><b>19.01</b><small>&plusmn;0.62</small></td>
-                  <td><b>1.42</b><small>&plusmn;0.24</small></td>
-                </tr>
+        <div class="table-container">
+          <table class="table is-bordered is-striped is-narrow is-fullwidth">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Setting</th>
+                <th>TextWorld</th>
+                <th>TW Express</th>
+                <th>AlfWorld</th>
+                <th>ScienceWorld</th>
+                <th>Jericho</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Qwen-2.5 7B -->
+              <tr>
+                <td rowspan="5"><b>Qwen-2.5 7B</b></td>
+                <td>Zero-shot</td>
+                <td>29.20<small>&plusmn;1.92</small></td>
+                <td>48.93<small>&plusmn;1.69</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>13.49<small>&plusmn;0.12</small></td>
+                <td>0.66<small>&plusmn;0.04</small></td>
+              </tr>
+              <tr>
+                <td>Chain of Thought</td>
+                <td>24.89<small>&plusmn;0.91</small></td>
+                <td>37.44<small>&plusmn;0.00</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>9.81<small>&plusmn;0.18</small></td>
+                <td>1.58<small>&plusmn;0.03</small></td>
+              </tr>
+              <tr>
+                <td>Tree of Thought</td>
+                <td>11.39<small>&plusmn;0.83</small></td>
+                <td>45.90<small>&plusmn;0.21</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>10.10<small>&plusmn;0.00</small></td>
+                <td>1.40<small>&plusmn;0.00</small></td>
+              </tr>
+              <tr>
+                <td>Prompt Explore</td>
+                <td>23.12<small>&plusmn;1.29</small></td>
+                <td>47.81<small>&plusmn;0.00</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>13.21<small>&plusmn;0.34</small></td>
+                <td>1.27<small>&plusmn;0.04</small></td>
+              </tr>
+              <tr class="is-dora-row">
+                <td><b>DORA (Ours)</b></td>
+                <td><b>45.40</b><small>&plusmn;1.68</small></td>
+                <td><b>51.17</b><small>&plusmn;3.38</small></td>
+                <td><b>2.78</b><small>&plusmn;2.78</small></td>
+                <td><b>19.01</b><small>&plusmn;0.62</small></td>
+                <td><b>1.42</b><small>&plusmn;0.24</small></td>
+              </tr>
 
-                <!-- Llama-3.1 8B -->
-                <tr class="model-divider">
-                  <td rowspan="5"><b>Llama-3.1 8B</b></td>
-                  <td>Zero-shot</td>
-                  <td>40.74<small>&plusmn;0.67</small></td>
-                  <td>48.29<small>&plusmn;1.04</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>15.53<small>&plusmn;0.50</small></td>
-                  <td>2.21<small>&plusmn;0.14</small></td>
-                </tr>
-                <tr>
-                  <td>Chain of Thought</td>
-                  <td>37.72<small>&plusmn;1.16</small></td>
-                  <td>24.72<small>&plusmn;2.50</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>7.81<small>&plusmn;0.87</small></td>
-                  <td>2.22<small>&plusmn;0.22</small></td>
-                </tr>
-                <tr>
-                  <td>Tree of Thought</td>
-                  <td>15.06<small>&plusmn;0.69</small></td>
-                  <td>15.52<small>&plusmn;0.21</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>8.64<small>&plusmn;1.64</small></td>
-                  <td>2.05<small>&plusmn;0.15</small></td>
-                </tr>
-                <tr>
-                  <td>Prompt Explore</td>
-                  <td>43.07<small>&plusmn;0.72</small></td>
-                  <td>52.77<small>&plusmn;2.08</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>13.70<small>&plusmn;0.59</small></td>
-                  <td>1.60<small>&plusmn;0.21</small></td>
-                </tr>
-                <tr class="is-dora-row">
-                  <td><b>DORA (Ours)</b></td>
-                  <td><b>50.15</b><small>&plusmn;6.88</small></td>
-                  <td><b>52.89</b><small>&plusmn;3.51</small></td>
-                  <td><b>2.78</b><small>&plusmn;2.78</small></td>
-                  <td><b>16.85</b><small>&plusmn;0.58</small></td>
-                  <td>2.17<small>&plusmn;0.21</small></td>
-                </tr>
+              <!-- Llama-3.1 8B -->
+              <tr class="model-divider">
+                <td rowspan="5"><b>Llama-3.1 8B</b></td>
+                <td>Zero-shot</td>
+                <td>40.74<small>&plusmn;0.67</small></td>
+                <td>48.29<small>&plusmn;1.04</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>15.53<small>&plusmn;0.50</small></td>
+                <td>2.21<small>&plusmn;0.14</small></td>
+              </tr>
+              <tr>
+                <td>Chain of Thought</td>
+                <td>37.72<small>&plusmn;1.16</small></td>
+                <td>24.72<small>&plusmn;2.50</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>7.81<small>&plusmn;0.87</small></td>
+                <td>2.22<small>&plusmn;0.22</small></td>
+              </tr>
+              <tr>
+                <td>Tree of Thought</td>
+                <td>15.06<small>&plusmn;0.69</small></td>
+                <td>15.52<small>&plusmn;0.21</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>8.64<small>&plusmn;1.64</small></td>
+                <td>2.05<small>&plusmn;0.15</small></td>
+              </tr>
+              <tr>
+                <td>Prompt Explore</td>
+                <td>43.07<small>&plusmn;0.72</small></td>
+                <td>52.77<small>&plusmn;2.08</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>13.70<small>&plusmn;0.59</small></td>
+                <td>1.60<small>&plusmn;0.21</small></td>
+              </tr>
+              <tr class="is-dora-row">
+                <td><b>DORA (Ours)</b></td>
+                <td><b>50.15</b><small>&plusmn;6.88</small></td>
+                <td><b>52.89</b><small>&plusmn;3.51</small></td>
+                <td><b>2.78</b><small>&plusmn;2.78</small></td>
+                <td><b>16.85</b><small>&plusmn;0.58</small></td>
+                <td>2.17<small>&plusmn;0.21</small></td>
+              </tr>
 
-                <!-- Mistral Small 22B -->
-                <tr class="model-divider">
-                  <td rowspan="5"><b>Mistral Small 22B</b></td>
-                  <td>Zero-shot</td>
-                  <td>62.25<small>&plusmn;1.08</small></td>
-                  <td>31.70<small>&plusmn;2.08</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>26.47<small>&plusmn;0.57</small></td>
-                  <td>1.35<small>&plusmn;0.03</small></td>
-                </tr>
-                <tr>
-                  <td>Chain of Thought</td>
-                  <td>31.43<small>&plusmn;2.22</small></td>
-                  <td>25.16<small>&plusmn;0.28</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>9.63<small>&plusmn;0.35</small></td>
-                  <td>1.43<small>&plusmn;0.13</small></td>
-                </tr>
-                <tr>
-                  <td>Tree of Thought</td>
-                  <td>32.54<small>&plusmn;0.83</small></td>
-                  <td>26.40<small>&plusmn;1.71</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>10.88<small>&plusmn;0.85</small></td>
-                  <td>1.27<small>&plusmn;0.03</small></td>
-                </tr>
-                <tr>
-                  <td>Prompt Explore</td>
-                  <td>50.60<small>&plusmn;0.69</small></td>
-                  <td>42.46<small>&plusmn;0.79</small></td>
-                  <td>0.00<small>&plusmn;0.00</small></td>
-                  <td>21.48<small>&plusmn;0.48</small></td>
-                  <td>1.70<small>&plusmn;0.05</small></td>
-                </tr>
-                <tr class="is-dora-row">
-                  <td><b>DORA (Ours)</b></td>
-                  <td><b>74.28</b><small>&plusmn;2.99</small></td>
-                  <td><b>43.12</b><small>&plusmn;1.21</small></td>
-                  <td><b>2.78</b><small>&plusmn;2.78</small></td>
-                  <td><b>32.43</b><small>&plusmn;1.15</small></td>
-                  <td><b>2.92</b><small>&plusmn;0.66</small></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
+              <!-- Mistral Small 22B -->
+              <tr class="model-divider">
+                <td rowspan="5"><b>Mistral Small 22B</b></td>
+                <td>Zero-shot</td>
+                <td>62.25<small>&plusmn;1.08</small></td>
+                <td>31.70<small>&plusmn;2.08</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>26.47<small>&plusmn;0.57</small></td>
+                <td>1.35<small>&plusmn;0.03</small></td>
+              </tr>
+              <tr>
+                <td>Chain of Thought</td>
+                <td>31.43<small>&plusmn;2.22</small></td>
+                <td>25.16<small>&plusmn;0.28</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>9.63<small>&plusmn;0.35</small></td>
+                <td>1.43<small>&plusmn;0.13</small></td>
+              </tr>
+              <tr>
+                <td>Tree of Thought</td>
+                <td>32.54<small>&plusmn;0.83</small></td>
+                <td>26.40<small>&plusmn;1.71</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>10.88<small>&plusmn;0.85</small></td>
+                <td>1.27<small>&plusmn;0.03</small></td>
+              </tr>
+              <tr>
+                <td>Prompt Explore</td>
+                <td>50.60<small>&plusmn;0.69</small></td>
+                <td>42.46<small>&plusmn;0.79</small></td>
+                <td>0.00<small>&plusmn;0.00</small></td>
+                <td>21.48<small>&plusmn;0.48</small></td>
+                <td>1.70<small>&plusmn;0.05</small></td>
+              </tr>
+              <tr class="is-dora-row">
+                <td><b>DORA (Ours)</b></td>
+                <td><b>74.28</b><small>&plusmn;2.99</small></td>
+                <td><b>43.12</b><small>&plusmn;1.21</small></td>
+                <td><b>2.78</b><small>&plusmn;2.78</small></td>
+                <td><b>32.43</b><small>&plusmn;1.15</small></td>
+                <td><b>2.92</b><small>&plusmn;0.66</small></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="has-text-centered is-size-7 caption">
+          <b>Table 2.</b> Performance on TALES environments. Mean normalised scores &plusmn; standard error over 3 runs.
+        </p>
 
 
         <div class="content has-text-justified">
@@ -536,38 +585,38 @@
 
         <!-- Loop Recovery Table -->
         <h3 class="title is-4">Loop Recovery</h3>
-        <details class="results-dropdown">
-          <summary>Table 3 - Loop recovery across TALES environments</summary>
-          <div class="table-container">
-            <table class="table is-bordered is-striped is-narrow is-fullwidth">
-              <thead>
-                <tr>
-                  <th rowspan="2">Method</th>
-                  <th colspan="3">TextWorld</th>
-                  <th colspan="3">ScienceWorld</th>
-                  <th colspan="3">AlfWorld</th>
-                </tr>
-                <tr>
-                  <th>Loops</th><th>Rec.</th><th>%</th>
-                  <th>Loops</th><th>Rec.</th><th>%</th>
-                  <th>Loops</th><th>Rec.</th><th>%</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>Zero-shot</td><td>612</td><td>3</td><td>0.5</td><td>2551</td><td>9</td><td>0.35</td><td>811</td><td>0</td><td>0.0</td></tr>
-                <tr><td>Prompt Explore</td><td>663</td><td>5</td><td>0.8</td><td>2321</td><td>10</td><td>0.43</td><td>721</td><td>1</td><td>0.1</td></tr>
-                <tr><td>CoT</td><td>673</td><td>24</td><td>3.6</td><td>2621</td><td>6</td><td>0.23</td><td>846</td><td>1</td><td>0.1</td></tr>
-                <tr><td>ToT</td><td>783</td><td>8</td><td>1.0</td><td>2801</td><td>2</td><td>0.07</td><td>857</td><td>0</td><td>0.0</td></tr>
-                <tr class="is-dora-row">
-                  <td><b>DORA (Auto)</b></td>
-                  <td><b>185</b></td><td><b>36</b></td><td><b>19.5</b></td>
-                  <td><b>1234</b></td><td><b>45</b></td><td><b>3.6</b></td>
-                  <td><b>111</b></td><td><b>12</b></td><td><b>10.8</b></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
+        <div class="table-container">
+          <table class="table is-bordered is-striped is-narrow is-fullwidth">
+            <thead>
+              <tr>
+                <th rowspan="2">Method</th>
+                <th colspan="3">TextWorld</th>
+                <th colspan="3">ScienceWorld</th>
+                <th colspan="3">AlfWorld</th>
+              </tr>
+              <tr>
+                <th>Loops</th><th>Rec.</th><th>%</th>
+                <th>Loops</th><th>Rec.</th><th>%</th>
+                <th>Loops</th><th>Rec.</th><th>%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Zero-shot</td><td>612</td><td>3</td><td>0.5</td><td>2551</td><td>9</td><td>0.35</td><td>811</td><td>0</td><td>0.0</td></tr>
+              <tr><td>Prompt Explore</td><td>663</td><td>5</td><td>0.8</td><td>2321</td><td>10</td><td>0.43</td><td>721</td><td>1</td><td>0.1</td></tr>
+              <tr><td>CoT</td><td>673</td><td>24</td><td>3.6</td><td>2621</td><td>6</td><td>0.23</td><td>846</td><td>1</td><td>0.1</td></tr>
+              <tr><td>ToT</td><td>783</td><td>8</td><td>1.0</td><td>2801</td><td>2</td><td>0.07</td><td>857</td><td>0</td><td>0.0</td></tr>
+              <tr class="is-dora-row">
+                <td><b>DORA (Auto)</b></td>
+                <td><b>185</b></td><td><b>36</b></td><td><b>19.5</b></td>
+                <td><b>1234</b></td><td><b>45</b></td><td><b>3.6</b></td>
+                <td><b>111</b></td><td><b>12</b></td><td><b>10.8</b></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="has-text-centered is-size-7 caption">
+          <b>Table 3.</b> Loops encountered, recovered, and recovery rate (%) across TALES environments.
+        </p>
       </div>
     </div>
   </div>
@@ -581,82 +630,108 @@
         <h2 class="title is-3">Ablations</h2>
 
         <h3 class="title is-5">&tau;-Sampling vs. DORA on TextWorld</h3>
-        <details class="results-dropdown" open>
-          <summary>Table 4 - &tau;-Sampling vs. DORA on TextWorld</summary>
-          <div class="table-container">
-            <table class="table is-bordered is-striped is-narrow is-fullwidth">
-              <thead>
-                <tr>
-                  <th>Model</th>
-                  <th>&tau;=0</th><th>&tau;=0.3</th><th>&tau;=0.7</th><th>&tau;=1</th><th>&tau;=1.5</th><th>&tau;=2</th><th>&tau;-policy</th>
-                  <th class="is-dora">DORA</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Llama-3.1 8B</td>
-                  <td>39.41</td><td>34.08</td><td>30.74</td><td>14.33</td><td>0.00</td><td>0.00</td><td>0.00</td>
-                  <td class="is-dora"><b>44.74</b></td>
-                </tr>
-                <tr>
-                  <td>Qwen-2.5 7B</td>
-                  <td>27.65</td><td>23.65</td><td>26.74</td><td>17.65</td><td>21.83</td><td>12.83</td><td>10.33</td>
-                  <td class="is-dora"><b>44.62</b></td>
-                </tr>
-                <tr>
-                  <td>Mistral Small 22B</td>
-                  <td>60.16</td><td>54.62</td><td>39.83</td><td>5.83</td><td>5.83</td><td>0.00</td><td>0.00</td>
-                  <td class="is-dora"><b>73.59</b></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
+        <div class="table-container">
+          <table class="table is-bordered is-striped is-narrow is-fullwidth">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>&tau;=0</th><th>&tau;=0.3</th><th>&tau;=0.7</th><th>&tau;=1</th><th>&tau;=1.5</th><th>&tau;=2</th><th>&tau;-policy</th>
+                <th class="is-dora">DORA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Llama-3.1 8B</td>
+                <td>39.41</td><td>34.08</td><td>30.74</td><td>14.33</td><td>0.00</td><td>0.00</td><td>0.00</td>
+                <td class="is-dora"><b>44.74</b></td>
+              </tr>
+              <tr>
+                <td>Qwen-2.5 7B</td>
+                <td>27.65</td><td>23.65</td><td>26.74</td><td>17.65</td><td>21.83</td><td>12.83</td><td>10.33</td>
+                <td class="is-dora"><b>44.62</b></td>
+              </tr>
+              <tr>
+                <td>Mistral Small 22B</td>
+                <td>60.16</td><td>54.62</td><td>39.83</td><td>5.83</td><td>5.83</td><td>0.00</td><td>0.00</td>
+                <td class="is-dora"><b>73.59</b></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="has-text-centered is-size-7 caption">
+          <b>Table 4.</b> DORA consistently outperforms all temperature strategies on TextWorld.
+        </p>
 
         <br>
 
         <div class="columns">
           <div class="column">
             <h3 class="title is-5">Effect of &alpha;</h3>
-            <details class="results-dropdown">
-              <summary>Table 8 - Effect of &alpha;</summary>
-              <div class="table-container">
-                <table class="table is-bordered is-striped is-narrow is-fullwidth is-size-7">
-                  <thead>
-                    <tr>
-                      <th>(&alpha;,&beta;)</th>
-                      <th>(1.0,0.0)</th><th>(0.8,0.2)</th><th>(0.6,0.4)</th><th>(0.4,0.6)</th><th>(0.2,0.8)</th><th>(0.0,1.0)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr><td>Mean Reward</td><td>0.496</td><td class="is-dora"><b>0.514</b></td><td>0.509</td><td>0.506</td><td>0.500</td><td>0.511</td></tr>
-                    <tr><td>SuffFail</td><td>0.05</td><td class="is-dora"><b>0.00</b></td><td>0.05</td><td>0.05</td><td>0.05</td><td>0.00</td></tr>
-                    <tr><td>Best Arm</td><td>0.516</td><td class="is-dora"><b>0.585</b></td><td>0.584</td><td>0.540</td><td>0.528</td><td>0.577</td></tr>
-                    <tr><td>Regret</td><td>19.34</td><td class="is-dora"><b>16.61</b></td><td>16.63</td><td>18.40</td><td>18.90</td><td>16.92</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </details>
+            <div class="table-container">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth is-size-7">
+                <thead>
+                  <tr>
+                    <th>(&alpha;,&beta;)</th>
+                    <th>(1.0,0.0)</th><th>(0.8,0.2)</th><th>(0.6,0.4)</th><th>(0.4,0.6)</th><th>(0.2,0.8)</th><th>(0.0,1.0)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Mean Reward</td><td>0.496</td><td class="is-dora"><b>0.514</b></td><td>0.509</td><td>0.506</td><td>0.500</td><td>0.511</td></tr>
+                  <tr><td>SuffFail</td><td>0.05</td><td class="is-dora"><b>0.00</b></td><td>0.05</td><td>0.05</td><td>0.05</td><td>0.00</td></tr>
+                  <tr><td>Best Arm</td><td>0.516</td><td class="is-dora"><b>0.585</b></td><td>0.584</td><td>0.540</td><td>0.528</td><td>0.577</td></tr>
+                  <tr><td>Regret</td><td>19.34</td><td class="is-dora"><b>16.61</b></td><td>16.63</td><td>18.40</td><td>18.90</td><td>16.92</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="has-text-centered is-size-7 caption">
+              <b>Table 8.</b> &alpha;=0.8 yields the best trade-off.
+            </p>
           </div>
 
           <div class="column">
             <h3 class="title is-5">Schedule vs. Auto</h3>
-            <details class="results-dropdown">
-              <summary>Table 10 - Auto-Explore on TextWorld</summary>
-              <div class="table-container">
-                <table class="table is-bordered is-striped is-narrow is-fullwidth is-size-7">
-                  <thead>
-                    <tr><th>Model</th><th>&lambda;-Sched</th><th class="is-dora">Auto</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr><td>Qwen-2.5 7B</td><td>5.83</td><td class="is-dora"><b>42.95</b></td></tr>
-                    <tr><td>Llama-3.1 8B</td><td>21.00</td><td class="is-dora"><b>41.89</b></td></tr>
-                    <tr><td>Mistral Small 22B</td><td>9.17</td><td class="is-dora"><b>69.57</b></td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </details>
+            <div class="table-container">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth is-size-7">
+                <thead>
+                  <tr><th>Model</th><th>&lambda;-Sched</th><th class="is-dora">Auto</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Qwen-2.5 7B</td><td>5.83</td><td class="is-dora"><b>42.95</b></td></tr>
+                  <tr><td>Llama-3.1 8B</td><td>21.00</td><td class="is-dora"><b>41.89</b></td></tr>
+                  <tr><td>Mistral Small 22B</td><td>9.17</td><td class="is-dora"><b>69.57</b></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="has-text-centered is-size-7 caption">
+              <b>Table 10.</b> Auto-Explore on TextWorld.
+            </p>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Hyperparameters -->
+<section class="section" id="hyperparameters">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <h2 class="title is-3">Hyperparameters</h2>
+        <div class="table-container">
+          <table class="table is-bordered is-striped is-fullwidth">
+            <thead>
+              <tr><th>Hyperparameter</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Decision temperature &tau;<sub>d</sub></td><td>0.2</td></tr>
+              <tr><td>Candidate temperature &tau;<sub>C</sub></td><td>0.7</td></tr>
+              <tr><td>&lambda;-sampling temperature &tau;<sub>&lambda;</sub></td><td>0.2</td></tr>
+              <tr><td>Number of candidates n<sub>C</sub></td><td>20</td></tr>
+              <tr><td>Scoring weight &alpha;</td><td>0.8</td></tr>
+              <tr><td>Growth constant k</td><td>5</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
