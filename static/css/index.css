@@ -25,10 +25,10 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(122, 85, 161, 0.92);
+  background: rgba(88, 28, 135, 0.93);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(219, 190, 243, 0.52);
+  border-bottom: 1px solid rgba(192, 132, 252, 0.25);
   height: 64px;
 }
 
@@ -103,7 +103,7 @@ body {
 
 /* ===== Hero ===== */
 .hero-gradient {
-  background: linear-gradient(135deg, #6d4a97 0%, #8965b6 35%, #a98ad1 70%, #cfb8e9 100%);
+  background: linear-gradient(135deg, #581c87 0%, #7e22ce 30%, #a855f7 60%, #c084fc 100%);
   padding-top: 64px;
   padding-bottom: 1rem;
 }
