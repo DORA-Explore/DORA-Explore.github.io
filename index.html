@@ -527,6 +527,74 @@
         </details>
 
         <details class="finding-card">
+          <summary class="finding-summary">DORA covers more states compared to baselines.</summary>
+          <div class="finding-body">
+            <p>
+              DORA visits significantly more unique states per task across all TALES environments,
+              indicating greater coverage and information gathering.
+            </p>
+            <div class="table-container">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>TextWorld</th>
+                    <th>ScienceWorld</th>
+                    <th>AlfWorld</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Zero-shot</td><td>14.0</td><td>6.50</td><td>2.67</td></tr>
+                  <tr><td>Prompt Explore</td><td>12.1</td><td>8.90</td><td>3.67</td></tr>
+                  <tr><td>CoT</td><td>17.5</td><td>8.23</td><td>3.25</td></tr>
+                  <tr><td>ToT</td><td>12.1</td><td>4.60</td><td>3.67</td></tr>
+                  <tr class="is-dora-row">
+                    <td><b>DORA (Auto)</b></td>
+                    <td><b>32.0</b></td><td><b>20.23</b></td><td><b>27.92</b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="has-text-centered is-size-7 caption">
+              Average unique states visited per task in TALES environments.
+            </p>
+          </div>
+        </details>
+
+        <details class="finding-card">
+          <summary class="finding-summary">DORA uses more tokens but achieves substantially better outcomes.</summary>
+          <div class="finding-body">
+            <p>
+              DORA Explorer uses ~2&times; more tokens than Prompt Explore (which uses the fewest),
+              but this additional compute translates into significantly better task performance.
+            </p>
+            <div class="table-container">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Avg Tokens per Task</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Zero-shot</td><td>203,200</td></tr>
+                  <tr><td>Prompt Explore</td><td>193,176</td></tr>
+                  <tr><td>CoT</td><td>283,938</td></tr>
+                  <tr><td>ToT</td><td>297,266</td></tr>
+                  <tr class="is-dora-row">
+                    <td><b>DORA Explorer</b></td>
+                    <td><b>364,664</b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="has-text-centered is-size-7 caption">
+              Average token usage per task on TALES TextWorld.
+            </p>
+          </div>
+        </details>
+
+        <details class="finding-card">
           <summary class="finding-summary">DORA consistently outperforms all temperature strategies.</summary>
           <div class="finding-body">
             <div class="table-container">
