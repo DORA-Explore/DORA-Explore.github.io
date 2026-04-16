@@ -324,8 +324,9 @@
                   <line x1="325" y1="20" x2="340" y2="20" stroke="#8b5cf6" stroke-width="2"/><text x="343" y="24" font-size="9" fill="#374151" font-weight="600">Purple</text>
                 </svg>
                 <p class="has-text-centered is-size-7 caption" style="margin-top:0.3rem;">
-                  <b>(Left)</b> DORA arm selection on MAB. The optimal arm (red) dominates
-                  as suboptimal arms plateau early.
+                  <b>(Left)</b> Arms selected by DORA over an episode. In the early timesteps,
+                  &lambda; policy samples all arms but as T increases, &lambda; increases and switches
+                  to mostly exploit the optimal arm (red).
                 </p>
               </div>
               <div class="side-chart">
@@ -333,7 +334,9 @@
                      alt="Optimal arm fraction across baselines and DORA with varying tau"
                      style="width:100%;border-radius:8px;border:1px solid #e5e7eb;">
                 <p class="has-text-centered is-size-7 caption" style="margin-top:0.3rem;">
-                  <b>(Right)</b> Optimal arm fraction: DORA vs. baselines across temperature settings.
+                  <b>(Right)</b> Comparison of optimal arm selection over a horizon of T&nbsp;=&nbsp;200,
+                  across methods. DORA explores more in the early stages but selects the optimal arm
+                  more often as it progresses.
                 </p>
               </div>
             </div>
