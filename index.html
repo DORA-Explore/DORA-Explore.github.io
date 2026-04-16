@@ -271,6 +271,76 @@
         <h2 class="title is-3">Findings</h2>
 
         <details class="finding-card">
+          <summary class="finding-summary">DORA explores early in MAB and converges quickly to the optimal arm.</summary>
+          <div class="finding-body">
+            <div class="side-by-side-charts">
+              <div class="side-chart">
+                <svg class="line-chart" viewBox="0 0 500 300" preserveAspectRatio="xMidYMid meet">
+                  <defs>
+                    <pattern id="grid" width="100" height="60" patternUnits="userSpaceOnUse">
+                      <path d="M 100 0 L 0 0 0 60" fill="none" stroke="#e5e7eb" stroke-width="0.5"/>
+                    </pattern>
+                    <pattern id="gridMinor" width="50" height="30" patternUnits="userSpaceOnUse">
+                      <path d="M 50 0 L 0 0 0 30" fill="none" stroke="#f3f4f6" stroke-width="0.3" stroke-dasharray="3,3"/>
+                    </pattern>
+                  </defs>
+                  <rect x="60" y="10" width="420" height="240" fill="url(#gridMinor)"/>
+                  <rect x="60" y="10" width="420" height="240" fill="url(#grid)"/>
+                  <line x1="60" y1="250" x2="480" y2="250" stroke="#9ca3af" stroke-width="1"/>
+                  <line x1="60" y1="10" x2="60" y2="250" stroke="#9ca3af" stroke-width="1"/>
+                  <text x="270" y="290" text-anchor="middle" font-size="11" fill="#374151" font-weight="600">Time Step (t)</text>
+                  <text x="15" y="130" text-anchor="middle" font-size="11" fill="#374151" font-weight="600" transform="rotate(-90,15,130)"># Cumulative Selection</text>
+                  <text x="60" y="265" text-anchor="middle" font-size="9" fill="#6b7280">0</text>
+                  <text x="144" y="265" text-anchor="middle" font-size="9" fill="#6b7280">25</text>
+                  <text x="228" y="265" text-anchor="middle" font-size="9" fill="#6b7280">50</text>
+                  <text x="312" y="265" text-anchor="middle" font-size="9" fill="#6b7280">75</text>
+                  <text x="396" y="265" text-anchor="middle" font-size="9" fill="#6b7280">100</text>
+                  <text x="480" y="265" text-anchor="middle" font-size="9" fill="#6b7280">125</text>
+                  <text x="55" y="253" text-anchor="end" font-size="9" fill="#6b7280">0</text>
+                  <text x="55" y="193" text-anchor="end" font-size="9" fill="#6b7280">20</text>
+                  <text x="55" y="133" text-anchor="end" font-size="9" fill="#6b7280">40</text>
+                  <text x="55" y="73" text-anchor="end" font-size="9" fill="#6b7280">60</text>
+                  <text x="55" y="13" text-anchor="end" font-size="9" fill="#6b7280">80</text>
+                  <!-- Red (Optimal Arm) -->
+                  <polyline fill="none" stroke="#ef4444" stroke-width="2.5"
+                    points="60,247 94,241 127,235 161,229 194,220 228,202 261,191 295,170 328,151 362,138 396,116 429,90 463,63"/>
+                  <!-- Yellow -->
+                  <polyline fill="none" stroke="#f59e0b" stroke-width="2"
+                    points="60,250 94,247 127,247 161,239 194,236 228,234 261,226 295,226 328,221 362,221 396,218 429,218 463,218"/>
+                  <!-- Blue -->
+                  <polyline fill="none" stroke="#3b82f6" stroke-width="2"
+                    points="60,250 94,244 127,236 161,234 194,231 228,229 261,229 295,229 328,226 362,223 396,223 429,223 463,223"/>
+                  <!-- Green -->
+                  <polyline fill="none" stroke="#22c55e" stroke-width="2"
+                    points="60,250 94,247 127,241 161,236 194,229 228,226 261,223 295,218 328,218 362,213 396,210 429,210 463,210"/>
+                  <!-- Purple -->
+                  <polyline fill="none" stroke="#8b5cf6" stroke-width="2"
+                    points="60,250 94,239 127,231 161,226 194,221 228,218 261,213 295,213 328,213 362,207 396,207 429,207 463,207"/>
+                  <!-- Legend -->
+                  <line x1="70" y1="20" x2="85" y2="20" stroke="#ef4444" stroke-width="2.5"/><text x="88" y="24" font-size="9" fill="#374151" font-weight="600">Red (optimal)</text>
+                  <line x1="160" y1="20" x2="175" y2="20" stroke="#f59e0b" stroke-width="2"/><text x="178" y="24" font-size="9" fill="#374151" font-weight="600">Yellow</text>
+                  <line x1="215" y1="20" x2="230" y2="20" stroke="#3b82f6" stroke-width="2"/><text x="233" y="24" font-size="9" fill="#374151" font-weight="600">Blue</text>
+                  <line x1="265" y1="20" x2="280" y2="20" stroke="#22c55e" stroke-width="2"/><text x="283" y="24" font-size="9" fill="#374151" font-weight="600">Green</text>
+                  <line x1="325" y1="20" x2="340" y2="20" stroke="#8b5cf6" stroke-width="2"/><text x="343" y="24" font-size="9" fill="#374151" font-weight="600">Purple</text>
+                </svg>
+                <p class="has-text-centered is-size-7 caption" style="margin-top:0.3rem;">
+                  <b>(Left)</b> DORA arm selection on MAB. The optimal arm (red) dominates
+                  as suboptimal arms plateau early.
+                </p>
+              </div>
+              <div class="side-chart">
+                <img src="static/img/optimal-arm-baselines.png"
+                     alt="Optimal arm fraction across baselines and DORA with varying tau"
+                     style="width:100%;border-radius:8px;border:1px solid #e5e7eb;">
+                <p class="has-text-centered is-size-7 caption" style="margin-top:0.3rem;">
+                  <b>(Right)</b> Optimal arm fraction: DORA vs. baselines across temperature settings.
+                </p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="finding-card">
           <summary class="finding-summary">DORA achieves near-optimal performance on Multi-Armed Bandits.</summary>
           <div class="finding-body">
             <p>

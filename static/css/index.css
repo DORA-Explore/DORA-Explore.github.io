@@ -460,6 +460,23 @@ details.finding-card[open] > .finding-summary::before {
   white-space: nowrap;
 }
 
+/* Side-by-side charts */
+.side-by-side-charts {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.side-chart {
+  flex: 1;
+  min-width: 0;
+}
+
+.line-chart {
+  width: 100%;
+  height: auto;
+}
+
 @media (max-width: 700px) {
   .grouped-chart {
     flex-direction: column;
@@ -467,6 +484,9 @@ details.finding-card[open] > .finding-summary::before {
   .hbar-label {
     width: 90px;
     font-size: 0.78rem;
+  }
+  .side-by-side-charts {
+    flex-direction: column;
   }
 }
 
