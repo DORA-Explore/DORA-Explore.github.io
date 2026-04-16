@@ -95,45 +95,10 @@
     <div class="columns is-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Method</h2>
-        <div class="content has-text-justified">
-          <p>
-            DORA Explorer is a modular, plug-and-play inference-time framework.
-            It works in four stages:
-          </p>
-          <ol>
-            <li>
-              <b>Greedy or Explore Decision.</b>
-              At each step <i>t</i>, the agent receives context
-              <i>c&nbsp;=&nbsp;[H;&nbsp;o<sub>t</sub>]</i> and samples a decision
-              <i>d&nbsp;&sim;&nbsp;&pi;<sub>d</sub>(c,&nbsp;&tau;<sub>d</sub>)</i>
-              on whether to act greedily or to explore.
-            </li>
-            <li>
-              <b>Candidate Action Generation.</b>
-              If exploring, DORA generates <i>n<sub>C</sub></i> candidate actions via list-level
-              prompting. Joint list generation forces the model to explore the breadth of its
-              distribution, naturally producing diverse candidates. Previously used actions
-              are filtered out.
-            </li>
-            <li>
-              <b>Action Scoring.</b>
-              Each candidate is scored with a combination of normalised mean log-probability
-              (confidence) and variance of log-probability (consistency):
-              <i>Score(a,&nbsp;&alpha;)&nbsp;=&nbsp;&alpha;&nbsp;&middot;&nbsp;&mu;&#771;(a)&nbsp;&minus;&nbsp;(1&minus;&alpha;)&nbsp;&middot;&nbsp;&sigma;&#771;&sup2;(a)</i>.
-            </li>
-            <li>
-              <b>&lambda;-Probability Sampling.</b>
-              Scores are converted to sampling probabilities via a softmax controlled by the
-              exploration parameter &lambda;. Lower &lambda; gives more exploration (flatter distribution);
-              higher &lambda; gives more exploitation (sharper distribution). The final action is
-              sampled from this categorical distribution.
-            </li>
-          </ol>
-        </div>
 
         <!-- Algorithm 1 -->
         <div class="algorithm-box">
-          <p class="algorithm-title"><b>Algorithm 1</b>&ensp;DORA Explorer</p>
+          <p class="algorithm-title has-text-centered"><b>Algorithm 1</b>&ensp;DORA Explorer</p>
           <div class="algorithm-content">
             <p><b>Input:</b> History <i>H</i>, observation <i>o<sub>t</sub></i>, used-action set <i>A<sub>o<sub>t</sub></sub></i></p>
             <p><b>Hyperparams:</b> <i>n<sub>C</sub></i>, {<i>&tau;<sub>d</sub></i>, <i>&tau;<sub>&lambda;</sub></i>, <i>&tau;<sub>C</sub></i>}, <i>&alpha;</i></p>
@@ -157,20 +122,6 @@
 19: return a*_t
 </pre>
           </div>
-        </div>
-
-        <div class="content has-text-justified">
-          <h3 class="title is-4">Selecting &lambda;</h3>
-          <p>
-            <b>&lambda;-Scheduler.</b>&ensp;An exponential schedule transitions from exploration to exploitation:
-            <i>&lambda;<sub>exp</sub>(t)&nbsp;=&nbsp;&lambda;<sub>min</sub>&nbsp;+&nbsp;(&lambda;<sub>max</sub>&nbsp;&minus;&nbsp;&lambda;<sub>min</sub>)&nbsp;&middot;&nbsp;(e<sup>kt/T</sup>&nbsp;&minus;&nbsp;1)&nbsp;/&nbsp;(e<sup>k</sup>&nbsp;&minus;&nbsp;1)</i>.
-            This works well for simpler tasks (MAB) where exploration needs decrease over time.
-          </p>
-          <p>
-            <b>Auto-Explorer.</b>&ensp;The LLM itself determines the exploration degree by sampling
-            <i>&lambda;&nbsp;&sim;&nbsp;&pi;<sub>&lambda;</sub>(c,&nbsp;&tau;<sub>&lambda;</sub>)</i> conditioned on context.
-            This is better suited for complex tasks (TALES) where exploration requirements vary dynamically.
-          </p>
         </div>
       </div>
     </div>
