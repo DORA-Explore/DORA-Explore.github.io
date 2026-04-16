@@ -652,46 +652,6 @@
         </details>
 
         <details class="finding-card">
-          <summary class="finding-summary">DORA uses more tokens but achieves substantially better outcomes.</summary>
-          <div class="finding-body">
-            <p>
-              DORA Explorer uses ~2&times; more tokens than Prompt Explore (which uses the fewest),
-              but this additional compute translates into significantly better task performance.
-            </p>
-            <div class="hbar-chart">
-              <div class="hbar-row">
-                <span class="hbar-label">Zero-shot</span>
-                <div class="hbar-track"><div class="hbar-fill" style="width:55.7%;background:#b6e3f4;"></div></div>
-                <span class="hbar-val">0.20M</span>
-              </div>
-              <div class="hbar-row">
-                <span class="hbar-label">Prompt Explore</span>
-                <div class="hbar-track"><div class="hbar-fill" style="width:52.96%;background:#fdd8a5;"></div></div>
-                <span class="hbar-val">0.19M</span>
-              </div>
-              <div class="hbar-row">
-                <span class="hbar-label">CoT</span>
-                <div class="hbar-track"><div class="hbar-fill" style="width:77.86%;background:#b2dfdb;"></div></div>
-                <span class="hbar-val">0.28M</span>
-              </div>
-              <div class="hbar-row">
-                <span class="hbar-label">ToT</span>
-                <div class="hbar-track"><div class="hbar-fill" style="width:81.51%;background:#bbdefb;"></div></div>
-                <span class="hbar-val">0.30M</span>
-              </div>
-              <div class="hbar-row">
-                <span class="hbar-label"><b>DORA Explorer</b></span>
-                <div class="hbar-track"><div class="hbar-fill hbar-fill-dora" style="width:100%;"></div></div>
-                <span class="hbar-val"><b>0.36M</b></span>
-              </div>
-            </div>
-            <p class="has-text-centered is-size-7 caption">
-              Average token usage per task on TALES TextWorld.
-            </p>
-          </div>
-        </details>
-
-        <details class="finding-card">
           <summary class="finding-summary">DORA consistently outperforms all temperature strategies.</summary>
           <div class="finding-body">
             <div class="table-container">
@@ -770,6 +730,46 @@
             </div>
             <p class="has-text-centered is-size-7 caption">
               <b>Table 10.</b> Schedule vs. Auto-Explore on TextWorld.
+            </p>
+          </div>
+        </details>
+
+        <details class="finding-card">
+          <summary class="finding-summary">DORA uses more tokens but achieves substantially better outcomes.</summary>
+          <div class="finding-body">
+            <p>
+              DORA Explorer uses ~2&times; more tokens than Prompt Explore (which uses the fewest),
+              but this additional compute translates into significantly better task performance.
+            </p>
+            <div class="hbar-chart">
+              <div class="hbar-row">
+                <span class="hbar-label">Zero-shot</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:55.7%;background:#b6e3f4;"></div></div>
+                <span class="hbar-val">0.20M</span>
+              </div>
+              <div class="hbar-row">
+                <span class="hbar-label">Prompt Explore</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:52.96%;background:#fdd8a5;"></div></div>
+                <span class="hbar-val">0.19M</span>
+              </div>
+              <div class="hbar-row">
+                <span class="hbar-label">CoT</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:77.86%;background:#b2dfdb;"></div></div>
+                <span class="hbar-val">0.28M</span>
+              </div>
+              <div class="hbar-row">
+                <span class="hbar-label">ToT</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:81.51%;background:#bbdefb;"></div></div>
+                <span class="hbar-val">0.30M</span>
+              </div>
+              <div class="hbar-row">
+                <span class="hbar-label"><b>DORA Explorer</b></span>
+                <div class="hbar-track"><div class="hbar-fill hbar-fill-dora" style="width:100%;"></div></div>
+                <span class="hbar-val"><b>0.36M</b></span>
+              </div>
+            </div>
+            <p class="has-text-centered is-size-7 caption">
+              Average token usage per task on TALES TextWorld.
             </p>
           </div>
         </details>
