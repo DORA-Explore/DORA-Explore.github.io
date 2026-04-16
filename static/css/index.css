@@ -161,6 +161,23 @@ body {
   transform: translateY(-1px);
 }
 
+/* ===== Abstract card ===== */
+.abstract-card {
+  margin: 2rem 1.5rem;
+  padding: 1.5rem 2rem;
+  border-left: 4px solid transparent;
+  border-image: linear-gradient(to bottom, #f59e0b, #a855f7, #3b82f6) 1;
+  background: #f9fafb;
+  border-radius: 0 8px 8px 0;
+}
+
+.abstract-text {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #374151;
+  margin: 0;
+}
+
 /* ===== Section headings ===== */
 .title.is-3 {
   font-family: 'Google Sans', sans-serif;
