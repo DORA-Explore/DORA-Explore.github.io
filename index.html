@@ -533,27 +533,44 @@
               DORA visits significantly more unique states per task across all TALES environments,
               indicating greater coverage and information gathering.
             </p>
-            <div class="table-container">
-              <table class="table is-bordered is-striped is-narrow is-fullwidth">
-                <thead>
-                  <tr>
-                    <th>Method</th>
-                    <th>TextWorld</th>
-                    <th>ScienceWorld</th>
-                    <th>AlfWorld</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>Zero-shot</td><td>14.0</td><td>6.50</td><td>2.67</td></tr>
-                  <tr><td>Prompt Explore</td><td>12.1</td><td>8.90</td><td>3.67</td></tr>
-                  <tr><td>CoT</td><td>17.5</td><td>8.23</td><td>3.25</td></tr>
-                  <tr><td>ToT</td><td>12.1</td><td>4.60</td><td>3.67</td></tr>
-                  <tr class="is-dora-row">
-                    <td><b>DORA (Auto)</b></td>
-                    <td><b>32.0</b></td><td><b>20.23</b></td><td><b>27.92</b></td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="chart-legend">
+              <span class="chart-legend-item"><span class="legend-swatch" style="background:#b6e3f4;"></span>Zero-shot</span>
+              <span class="chart-legend-item"><span class="legend-swatch" style="background:#fdd8a5;"></span>Prompt Explore</span>
+              <span class="chart-legend-item"><span class="legend-swatch" style="background:#b2dfdb;"></span>CoT</span>
+              <span class="chart-legend-item"><span class="legend-swatch" style="background:#bbdefb;"></span>ToT</span>
+              <span class="chart-legend-item"><span class="legend-swatch dora-swatch"></span>DORA (Auto)</span>
+            </div>
+            <div class="grouped-chart">
+              <div class="chart-group">
+                <div class="chart-group-label">TextWorld</div>
+                <div class="chart-bars">
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:43.75%;background:#b6e3f4;"></div><span class="chart-val">14.0</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:37.81%;background:#fdd8a5;"></div><span class="chart-val">12.1</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:54.69%;background:#b2dfdb;"></div><span class="chart-val">17.5</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:37.81%;background:#bbdefb;"></div><span class="chart-val">12.1</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar chart-bar-dora" style="width:100%;"></div><span class="chart-val"><b>32.0</b></span></div>
+                </div>
+              </div>
+              <div class="chart-group">
+                <div class="chart-group-label">ScienceWorld</div>
+                <div class="chart-bars">
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:32.13%;background:#b6e3f4;"></div><span class="chart-val">6.5</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:44.0%;background:#fdd8a5;"></div><span class="chart-val">8.9</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:40.68%;background:#b2dfdb;"></div><span class="chart-val">8.23</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:22.74%;background:#bbdefb;"></div><span class="chart-val">4.6</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar chart-bar-dora" style="width:100%;"></div><span class="chart-val"><b>20.23</b></span></div>
+                </div>
+              </div>
+              <div class="chart-group">
+                <div class="chart-group-label">AlfWorld</div>
+                <div class="chart-bars">
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:9.56%;background:#b6e3f4;"></div><span class="chart-val">2.67</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:13.14%;background:#fdd8a5;"></div><span class="chart-val">3.67</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:11.63%;background:#b2dfdb;"></div><span class="chart-val">3.25</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar" style="width:13.14%;background:#bbdefb;"></div><span class="chart-val">3.67</span></div>
+                  <div class="chart-bar-row"><div class="chart-bar chart-bar-dora" style="width:100%;"></div><span class="chart-val"><b>27.92</b></span></div>
+                </div>
+              </div>
             </div>
             <p class="has-text-centered is-size-7 caption">
               Average unique states visited per task in TALES environments.
@@ -568,25 +585,32 @@
               DORA Explorer uses ~2&times; more tokens than Prompt Explore (which uses the fewest),
               but this additional compute translates into significantly better task performance.
             </p>
-            <div class="table-container">
-              <table class="table is-bordered is-striped is-narrow is-fullwidth">
-                <thead>
-                  <tr>
-                    <th>Method</th>
-                    <th>Avg Tokens per Task</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>Zero-shot</td><td>203,200</td></tr>
-                  <tr><td>Prompt Explore</td><td>193,176</td></tr>
-                  <tr><td>CoT</td><td>283,938</td></tr>
-                  <tr><td>ToT</td><td>297,266</td></tr>
-                  <tr class="is-dora-row">
-                    <td><b>DORA Explorer</b></td>
-                    <td><b>364,664</b></td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="hbar-chart">
+              <div class="hbar-row">
+                <span class="hbar-label">Zero-shot</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:55.7%;background:#b6e3f4;"></div></div>
+                <span class="hbar-val">0.20M</span>
+              </div>
+              <div class="hbar-row">
+                <span class="hbar-label">Prompt Explore</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:52.96%;background:#fdd8a5;"></div></div>
+                <span class="hbar-val">0.19M</span>
+              </div>
+              <div class="hbar-row">
+                <span class="hbar-label">CoT</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:77.86%;background:#b2dfdb;"></div></div>
+                <span class="hbar-val">0.28M</span>
+              </div>
+              <div class="hbar-row">
+                <span class="hbar-label">ToT</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:81.51%;background:#bbdefb;"></div></div>
+                <span class="hbar-val">0.30M</span>
+              </div>
+              <div class="hbar-row">
+                <span class="hbar-label"><b>DORA Explorer</b></span>
+                <div class="hbar-track"><div class="hbar-fill hbar-fill-dora" style="width:100%;"></div></div>
+                <span class="hbar-val"><b>0.36M</b></span>
+              </div>
             </div>
             <p class="has-text-centered is-size-7 caption">
               Average token usage per task on TALES TextWorld.

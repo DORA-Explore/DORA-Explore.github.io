@@ -307,6 +307,169 @@ details.finding-card[open] > .finding-summary::before {
   color: #374151;
 }
 
+/* ===== Bar charts (CSS) ===== */
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-bottom: 1.2rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.chart-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.legend-swatch.dora-swatch {
+  background: linear-gradient(135deg, #e9d5ff, #c084fc);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0.12) 5px
+  ), linear-gradient(135deg, #e9d5ff, #c084fc);
+}
+
+.grouped-chart {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.chart-group {
+  flex: 1;
+}
+
+.chart-group-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #581c87;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.chart-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chart-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 18px;
+}
+
+.chart-bar {
+  height: 100%;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  min-width: 4px;
+  transition: width 0.4s ease;
+}
+
+.chart-bar-dora {
+  background: linear-gradient(90deg, #e9d5ff, #c084fc);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.1) 3px,
+    rgba(0, 0, 0, 0.1) 5px
+  ), linear-gradient(90deg, #e9d5ff, #c084fc);
+  border-color: #a855f7;
+}
+
+.chart-val {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #374151;
+  white-space: nowrap;
+}
+
+/* Horizontal bar chart */
+.hbar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.hbar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hbar-label {
+  width: 120px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.hbar-track {
+  flex: 1;
+  height: 22px;
+  background: #f1f5f9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.hbar-fill {
+  height: 100%;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: width 0.4s ease;
+}
+
+.hbar-fill-dora {
+  background: linear-gradient(90deg, #e9d5ff, #c084fc) !important;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.1) 3px,
+    rgba(0, 0, 0, 0.1) 5px
+  ), linear-gradient(90deg, #e9d5ff, #c084fc) !important;
+  border-color: #a855f7;
+}
+
+.hbar-val {
+  width: 50px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #374151;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .grouped-chart {
+    flex-direction: column;
+  }
+  .hbar-label {
+    width: 90px;
+    font-size: 0.78rem;
+  }
+}
+
 /* ===== Tables ===== */
 .table-container {
   border-radius: 10px;
