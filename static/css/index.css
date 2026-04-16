@@ -255,6 +255,58 @@ body {
   margin-bottom: 0.25rem;
 }
 
+/* ===== Finding cards (TimeWarp-style dropdowns) ===== */
+.finding-card {
+  margin-bottom: 1rem;
+  border-left: 4px solid transparent;
+  border-image: linear-gradient(to bottom, #f59e0b, #a855f7, #3b82f6) 1;
+  background: #f9fafb;
+  border-radius: 0 8px 8px 0;
+  overflow: hidden;
+}
+
+.finding-summary {
+  padding: 1.2rem 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.finding-summary::-webkit-details-marker {
+  display: none;
+}
+
+.finding-summary::before {
+  content: '\25B6';
+  font-size: 0.7rem;
+  color: #9ca3af;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+details.finding-card[open] > .finding-summary::before {
+  transform: rotate(90deg);
+}
+
+.finding-summary:hover {
+  background: rgba(168, 85, 247, 0.05);
+}
+
+.finding-body {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.finding-body p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  color: #374151;
+}
+
 /* ===== Tables ===== */
 .table-container {
   border-radius: 10px;
