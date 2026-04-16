@@ -52,39 +52,17 @@
 </section>
 
 <!-- Abstract -->
-<section class="section" id="abstract">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Despite the rapid progress, LLMs for sequential decision-making (i.e., LLM agents)
-            still struggle to produce diverse outputs. This leads to insufficient exploration,
-            convergence to sub-optimal solutions, and becoming stuck in loops. Such limitations
-            can be problematic in environments that require active exploration to gather information
-            and make decisions. Sampling methods such as temperature scaling introduce token-level
-            randomness but fail to produce enough diversity at the sequence level.
-          </p>
-          <p>
-            We analyze LLM exploration in the classic Multi-Armed Bandit (MAB) setting and the
-            Text Adventure Learning Environment Suite (TALES). We find that current decoding
-            strategies and prompting methods like Chain-of-Thought and Tree-of-Thought are
-            insufficient for robust exploration.
-          </p>
-          <p>
-            To address this, we introduce <b>DORA Explorer</b> (Diversity-Oriented Ranking of Actions),
-            a training-free framework for improving exploration in LLM agents. DORA generates
-            diverse action candidates, scores them using token log-probabilities, and selects actions
-            using a tunable exploration parameter. DORA achieves UCB-competitive performance on
-            MAB and consistent gains across TALES, e.g., improving Qwen2.5-7B's performance
-            from 29.2% to 45.5% in TextWorld.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="container is-max-desktop" id="abstract">
+  <p class="content is-size-5 has-text-centered" style="max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem;">
+    <b>DORA Explorer</b> (Diversity-Oriented Ranking of Actions) is a training-free framework
+    for improving exploration in LLM agents. LLM agents struggle with exploration,
+    often converging to sub-optimal solutions or getting stuck in loops. DORA addresses this by
+    generating diverse action candidates, scoring them via token log-probabilities, and selecting
+    actions with a tunable exploration parameter. DORA achieves UCB-competitive performance on
+    Multi-Armed Bandits and consistent gains across the Text Adventure Learning Environment Suite
+    (TALES), e.g., improving Qwen2.5-7B from 29.2% to 45.5% in TextWorld.
+  </p>
+</div>
 
 <!-- DORA Teaser Diagram -->
 <section class="section">
