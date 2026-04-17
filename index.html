@@ -53,7 +53,7 @@
 
 <!-- Abstract -->
 <div class="container is-max-desktop" id="abstract">
-  <div class="abstract-card">
+  <div class="abstract-card fade-in">
     <p class="abstract-text">
       <b>DORA Explorer</b> (Diversity-Oriented Ranking of Actions) is a training-free framework
       for improving exploration in LLM agents. LLM agents struggle with exploration,
@@ -61,17 +61,23 @@
       generating diverse action candidates, scoring them via token log-probabilities, and selecting
       actions with a tunable exploration parameter. DORA achieves UCB-competitive performance on
       Multi-Armed Bandits and consistent gains across the Text Adventure Learning Environment Suite
-      (TALES), e.g., improving Qwen2.5-7B from 29.2% to 45.5% in TextWorld.
+      (TALES).
     </p>
   </div>
 </div>
 
-<!-- DORA Teaser Diagram -->
-<section class="section">
+<!-- Method -->
+<section class="section" id="method">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <figure class="overview-figure">
+        <h2 class="title is-3 fade-in">Method</h2>
+
+        <p class="caption has-text-centered fade-in">
+          DORA Explorer samples diverse action candidates, scores them by
+          log-probability, and selects the best action via a tunable exploration parameter.
+        </p>
+        <figure class="overview-figure fade-in fade-in-delay-1">
           <img
             src="static/img/overview-figure.png"
             alt="Overview diagram: regular prompting can loop; DORA Explorer explores diverse scored actions and achieves better results."
@@ -81,23 +87,9 @@
             decoding="async"
           >
         </figure>
-        <p class="caption has-text-centered">
-          Figure 1 &mdash; Overview of DORA Explorer.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Method -->
-<section class="section" id="method">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Method</h2>
 
         <!-- Algorithm 1 -->
-        <div class="algorithm-box">
+        <div class="algorithm-box fade-in fade-in-delay-1">
           <p class="algorithm-title has-text-centered"><b>Algorithm 1</b>&ensp;DORA Explorer</p>
           <div class="algorithm-content">
             <p><b>Input:</b> History <i>H</i>, observation <i>o<sub>t</sub></i>, used-action set <i>A<sub>o<sub>t</sub></sub></i></p>
@@ -128,14 +120,21 @@
   </div>
 </section>
 
-<!-- DORA on Multi-Armed Bandits -->
+<!-- Results on Multi-Armed Bandits -->
 <section class="section" id="mab">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">DORA on Multi-Armed Bandits</h2>
+        <h2 class="title is-3 fade-in">Results on Multi-Armed Bandits</h2>
 
-        <div id="dora-ep0-parallel" aria-label="MAB arm selection animation">
+        <p class="caption has-text-centered fade-in">
+          Arm-selection dynamics on a 5-armed bandit (the best arm is <strong>purple</strong>).
+          On the left, DORA Explorer with a &lambda;-scheduler progressively converges to the
+          optimal arm, while on the right the LLM at temperature &tau;&nbsp;=&nbsp;0 stays stuck
+          on a suboptimal arm.
+        </p>
+
+        <div id="dora-ep0-parallel" class="fade-in fade-in-delay-1" aria-label="MAB arm selection animation">
           <div class="dora-ep0-shell">
             <div class="dora-ep0-header">
               <div class="dora-ep0-status-row">
@@ -187,22 +186,24 @@
             </div>
           </div>
         </div>
-        <p class="has-text-centered is-size-7 caption">
-          <b>Figure 2.</b> MAB arm-selection dynamics (best arm: <strong>purple</strong>).
-          Left: DORA Explorer with &lambda;-scheduler progressively converges to the optimal arm.
-          Right: LLM with temperature &tau;&nbsp;=&nbsp;0 remains stuck on a suboptimal arm.
-        </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DORA on TALES -->
+<!-- Results on TALES -->
 <section class="section" id="tales">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">DORA on TALES</h2>
+        <h2 class="title is-3">Results on TALES</h2>
+
+        <p class="caption has-text-centered">
+          A TextWorld cooking task from TALES. DORA Explorer systematically explores rooms, finds
+          the cookbook, gathers ingredients, and completes the recipe (3/3), while the zero-shot
+          agent wanders in loops across the Shed, Backyard, and Garden without ever reaching the
+          Kitchen (0/3).
+        </p>
 
         <div id="tales-chat-anim" aria-label="TALES cooking task animation">
           <div class="tales-header">
@@ -253,11 +254,6 @@
             </div>
           </div>
         </div>
-        <p class="has-text-centered is-size-7 caption">
-          <b>Figure 3.</b> TextWorld (TALES): DORA Explorer systematically explores rooms, finds the cookbook,
-          gathers ingredients, and completes the recipe (3/3), while Zero-shot wanders in loops across Shed, Backyard,
-          and Garden without ever reaching the Kitchen (0/3).
-        </p>
       </div>
     </div>
   </div>
@@ -268,13 +264,18 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column">
-        <h2 class="title is-3">Findings</h2>
+        <h2 class="title is-3 fade-in">Findings</h2>
 
-        <details class="finding-card">
+        <details class="finding-card fade-in">
           <summary class="finding-summary">DORA explores early in MAB and converges quickly to the optimal arm.</summary>
           <div class="finding-body">
             <div class="side-by-side-charts">
               <div class="side-chart">
+                <p class="caption has-text-centered">
+                  Arms selected by DORA over a single episode. In the early timesteps the
+                  &lambda; policy samples all arms, and as <i>t</i> grows &lambda; increases and
+                  the agent shifts to exploiting the optimal arm (red).
+                </p>
                 <svg class="line-chart" viewBox="0 0 500 300" preserveAspectRatio="xMidYMid meet">
                   <defs>
                     <pattern id="grid" width="100" height="60" patternUnits="userSpaceOnUse">
@@ -323,27 +324,22 @@
                   <line x1="265" y1="20" x2="280" y2="20" stroke="#22c55e" stroke-width="2"/><text x="283" y="24" font-size="9" fill="#374151" font-weight="600">Green</text>
                   <line x1="325" y1="20" x2="340" y2="20" stroke="#8b5cf6" stroke-width="2"/><text x="343" y="24" font-size="9" fill="#374151" font-weight="600">Purple</text>
                 </svg>
-                <p class="has-text-centered is-size-7 caption" style="margin-top:0.3rem;">
-                  <b>(Left)</b> Arms selected by DORA over an episode. In the early timesteps,
-                  &lambda; policy samples all arms but as T increases, &lambda; increases and switches
-                  to mostly exploit the optimal arm (red).
-                </p>
               </div>
               <div class="side-chart">
+                <p class="caption has-text-centered">
+                  Optimal-arm selection across methods over a horizon of <i>T</i>&nbsp;=&nbsp;200.
+                  DORA explores more in the early stages but selects the optimal arm more often
+                  as the episode progresses.
+                </p>
                 <img src="static/img/optimal-arm-baselines.png"
                      alt="Optimal arm fraction across baselines and DORA with varying tau"
                      style="width:100%;border-radius:8px;border:1px solid #e5e7eb;">
-                <p class="has-text-centered is-size-7 caption" style="margin-top:0.3rem;">
-                  <b>(Right)</b> Comparison of optimal arm selection over a horizon of T&nbsp;=&nbsp;200,
-                  across methods. DORA explores more in the early stages but selects the optimal arm
-                  more often as it progresses.
-                </p>
               </div>
             </div>
           </div>
         </details>
 
-        <details class="finding-card">
+        <details class="finding-card fade-in">
           <summary class="finding-summary">DORA achieves near-optimal performance on Multi-Armed Bandits.</summary>
           <div class="finding-body">
             <p>
@@ -400,7 +396,7 @@
           </div>
         </details>
 
-        <details class="finding-card">
+        <details class="finding-card fade-in">
           <summary class="finding-summary">DORA improves overall task success on TALES.</summary>
           <div class="finding-body">
             <p>
@@ -551,12 +547,13 @@
               </table>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Table 2.</b> Performance on TALES environments. Mean normalised scores &plusmn; standard error over 3 runs.
+              <b>Table 2.</b> Performance across TALES environments, reported as mean normalised
+              scores &plusmn; standard error over 3 runs.
             </p>
           </div>
         </details>
 
-        <details class="finding-card">
+        <details class="finding-card fade-in">
           <summary class="finding-summary">DORA enables loop recovery with 5&times; to 20&times; higher rates.</summary>
           <div class="finding-body">
             <p>
@@ -594,12 +591,13 @@
               </table>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Table 3.</b> Loops encountered, recovered, and recovery rate (%) across TALES environments.
+              <b>Table 3.</b> Loops encountered, loops recovered, and recovery rate (%) across
+              TALES environments.
             </p>
           </div>
         </details>
 
-        <details class="finding-card">
+        <details class="finding-card fade-in">
           <summary class="finding-summary">DORA covers more states compared to baselines.</summary>
           <div class="finding-body">
             <p>
@@ -646,12 +644,13 @@
               </div>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              Average unique states visited per task in TALES environments.
+              <b>Figure 1.</b> Average number of unique states visited per task across TALES
+              environments.
             </p>
           </div>
         </details>
 
-        <details class="finding-card">
+        <details class="finding-card fade-in">
           <summary class="finding-summary">DORA consistently outperforms all temperature strategies.</summary>
           <div class="finding-body">
             <div class="table-container">
@@ -683,12 +682,12 @@
               </table>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Table 4.</b> &tau;-Sampling vs. DORA on TextWorld.
+              <b>Table 4.</b> Comparison of &tau;-sampling strategies against DORA on TextWorld.
             </p>
           </div>
         </details>
 
-        <details class="finding-card">
+        <details class="finding-card fade-in">
           <summary class="finding-summary">&alpha;=0.8 yields the best confidence&ndash;consistency trade-off.</summary>
           <div class="finding-body">
             <div class="table-container">
@@ -708,12 +707,13 @@
               </table>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Table 8.</b> Effect of &alpha; on MAB performance.
+              <b>Table 5.</b> Effect of the &alpha; confidence&ndash;consistency weighting on MAB
+              performance.
             </p>
           </div>
         </details>
 
-        <details class="finding-card">
+        <details class="finding-card fade-in">
           <summary class="finding-summary">Auto-Explorer outperforms the &lambda;-scheduler on complex tasks.</summary>
           <div class="finding-body">
             <div class="table-container">
@@ -729,12 +729,12 @@
               </table>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Table 10.</b> Schedule vs. Auto-Explore on TextWorld.
+              <b>Table 6.</b> &lambda;-schedule versus Auto-Explore on TextWorld.
             </p>
           </div>
         </details>
 
-        <details class="finding-card">
+        <details class="finding-card fade-in">
           <summary class="finding-summary">DORA uses more tokens but achieves substantially better outcomes.</summary>
           <div class="finding-body">
             <p>
@@ -769,7 +769,7 @@
               </div>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              Average token usage per task on TALES TextWorld.
+              <b>Figure 2.</b> Average token usage per task on TALES TextWorld.
             </p>
           </div>
         </details>

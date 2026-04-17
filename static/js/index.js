@@ -1,3 +1,53 @@
+/* ===== Scroll Fade-in Animation (inspired by TimeWarp) ===== */
+(() => {
+  const run = () => {
+    const fadeEls = document.querySelectorAll(".fade-in");
+    if (!fadeEls.length) return;
+
+    const prefersReducedMotion =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Safety: always reveal after a short timeout in case the observer
+    // never fires (e.g. elements inside a hidden ancestor).
+    const revealAll = () => {
+      fadeEls.forEach((el) => el.classList.add("is-visible"));
+    };
+
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      document.documentElement.classList.add("js-fade");
+      revealAll();
+      return;
+    }
+
+    // Activate hidden initial state only now that JS is ready.
+    document.documentElement.classList.add("js-fade");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -10% 0px" }
+    );
+
+    fadeEls.forEach((el) => observer.observe(el));
+
+    // Ultimate fallback: after 3s, force-reveal anything still hidden.
+    window.setTimeout(revealAll, 3000);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run, { once: true });
+  } else {
+    run();
+  }
+})();
+
 (() => {
   const root = document.getElementById("dora-ep0-parallel");
   if (!root) return;

@@ -101,17 +101,26 @@ body {
   background: #f8fafc;
 }
 
+.section.teaser-section,
+.section.teaser-section:nth-child(even) {
+  background: #ffffff;
+}
+
 /* ===== Hero ===== */
 .hero-gradient {
-  background: linear-gradient(135deg, #581c87 0%, #7e22ce 30%, #a855f7 60%, #c084fc 100%);
+  background: #ffffff;
   padding-top: 64px;
-  padding-bottom: 1rem;
+  padding-bottom: 0;
+}
+
+.hero-gradient .hero-body {
+  padding-bottom: 0.5rem;
 }
 
 .hero-gradient .publication-title {
   font-family: 'Google Sans', sans-serif;
   font-weight: 700;
-  color: #ffffff;
+  color: #581c87;
   font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1.15;
   margin-bottom: 0.3rem;
@@ -120,15 +129,15 @@ body {
 .publication-subtitle {
   font-family: 'Inter', sans-serif;
   font-size: clamp(1rem, 2.5vw, 1.35rem);
-  color: #f3e8ff;
+  color: #6b21a8;
   font-weight: 500;
   margin-bottom: 0.6rem;
 }
 
 .publication-venue {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(17, 24, 39, 0.75);
   margin-top: 0.25rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   font-size: 1rem;
 }
 
@@ -163,7 +172,7 @@ body {
 
 /* ===== Abstract card ===== */
 .abstract-card {
-  margin: 2rem 1.5rem;
+  margin: 0.75rem 1.5rem 2rem;
   padding: 1.5rem 2rem;
   border-left: 4px solid transparent;
   border-image: linear-gradient(to bottom, #f59e0b, #a855f7, #3b82f6) 1;
@@ -204,13 +213,18 @@ body {
   color: #374151;
 }
 
-/* ===== Caption ===== */
+/* ===== Caption (now used as description above figures/tables) ===== */
 .caption {
-  color: #6b7280;
-  margin-top: 0.5rem;
-  margin-bottom: 2rem;
-  font-size: 0.88rem;
-  line-height: 1.5;
+  color: #374151;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+/* Override Bulma's .is-size-7 on captions so descriptions remain readable */
+.caption.is-size-7 {
+  font-size: 1.02rem !important;
 }
 
 /* ===== Algorithm box ===== */
@@ -544,8 +558,36 @@ tr.model-divider > td {
   height: auto;
   margin: 0 auto;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.10), 0 2px 6px rgba(17, 17, 17, 0.06);
+}
+
+/* ===== Scroll Fade-in Animation (inspired by TimeWarp) ===== */
+/* Initial hidden state only activates when JS has successfully set up the
+   observer (avoids a blank page if scripts fail or are blocked). */
+html.js-fade .fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+html.js-fade .fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+html.js-fade .fade-in-delay-1 { transition-delay: 0.1s; }
+html.js-fade .fade-in-delay-2 { transition-delay: 0.2s; }
+html.js-fade .fade-in-delay-3 { transition-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-fade .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ===== Footer ===== */
@@ -593,6 +635,11 @@ tr.model-divider > td {
 #dora-ep0-parallel .dora-ep0-shell {
   max-width: 1120px;
   margin: 0 auto;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
 }
 
 #dora-ep0-parallel .dora-ep0-header {
@@ -899,6 +946,11 @@ tr.model-divider > td {
 /* ===== TALES Chat Animation ===== */
 #tales-chat-anim {
   margin: 1.5rem 0 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 22px 22px 20px;
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.10), 0 2px 6px rgba(17, 17, 17, 0.06);
 }
 
 #tales-chat-anim * {
@@ -1280,5 +1332,9 @@ tr.model-divider > td {
   .tales-chat-scroll {
     max-height: 280px;
     min-height: 200px;
+  }
+  #tales-chat-anim {
+    padding: 14px 12px;
+    border-radius: 12px;
   }
 }
