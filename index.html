@@ -66,27 +66,38 @@
   </div>
 </div>
 
+<!-- DORA Teaser Video -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <figure class="overview-figure">
+          <video
+            style="width:100%;border-radius:10px;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,0.06);"
+            controls
+            autoplay
+            muted
+            loop
+            playsinline
+          >
+            <source src="DORA Teaser.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </figure>
+        <p class="caption has-text-centered">
+          Figure 1 &mdash; Overview of DORA Explorer.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Method -->
 <section class="section" id="method">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 fade-in">Method</h2>
-
-        <p class="caption has-text-centered fade-in">
-          DORA Explorer samples diverse action candidates, scores them by
-          log-probability, and selects the best action via a tunable exploration parameter.
-        </p>
-        <figure class="overview-figure fade-in fade-in-delay-1">
-          <img
-            src="static/img/overview-figure.png"
-            alt="Overview diagram: regular prompting can loop; DORA Explorer explores diverse scored actions and achieves better results."
-            width="1872"
-            height="848"
-            loading="lazy"
-            decoding="async"
-          >
-        </figure>
+        <h2 class="title is-3">Method</h2>
 
         <!-- Algorithm 1 -->
         <div class="algorithm-box fade-in fade-in-delay-1">
