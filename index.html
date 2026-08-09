@@ -283,63 +283,18 @@
                   &lambda; policy samples all arms, and as <i>t</i> grows &lambda; increases and
                   the agent shifts to exploiting the optimal arm (red).
                 </p>
-                <svg class="line-chart" viewBox="0 0 500 300" preserveAspectRatio="xMidYMid meet">
-                  <defs>
-                    <pattern id="grid" width="100" height="60" patternUnits="userSpaceOnUse">
-                      <path d="M 100 0 L 0 0 0 60" fill="none" stroke="#e5e7eb" stroke-width="0.5"/>
-                    </pattern>
-                    <pattern id="gridMinor" width="50" height="30" patternUnits="userSpaceOnUse">
-                      <path d="M 50 0 L 0 0 0 30" fill="none" stroke="#f3f4f6" stroke-width="0.3" stroke-dasharray="3,3"/>
-                    </pattern>
-                  </defs>
-                  <rect x="60" y="10" width="420" height="240" fill="url(#gridMinor)"/>
-                  <rect x="60" y="10" width="420" height="240" fill="url(#grid)"/>
-                  <line x1="60" y1="250" x2="480" y2="250" stroke="#9ca3af" stroke-width="1"/>
-                  <line x1="60" y1="10" x2="60" y2="250" stroke="#9ca3af" stroke-width="1"/>
-                  <text x="270" y="290" text-anchor="middle" font-size="11" fill="#374151" font-weight="600">Time Step (t)</text>
-                  <text x="15" y="130" text-anchor="middle" font-size="11" fill="#374151" font-weight="600" transform="rotate(-90,15,130)"># Cumulative Selection</text>
-                  <text x="60" y="265" text-anchor="middle" font-size="9" fill="#6b7280">0</text>
-                  <text x="144" y="265" text-anchor="middle" font-size="9" fill="#6b7280">25</text>
-                  <text x="228" y="265" text-anchor="middle" font-size="9" fill="#6b7280">50</text>
-                  <text x="312" y="265" text-anchor="middle" font-size="9" fill="#6b7280">75</text>
-                  <text x="396" y="265" text-anchor="middle" font-size="9" fill="#6b7280">100</text>
-                  <text x="480" y="265" text-anchor="middle" font-size="9" fill="#6b7280">125</text>
-                  <text x="55" y="253" text-anchor="end" font-size="9" fill="#6b7280">0</text>
-                  <text x="55" y="193" text-anchor="end" font-size="9" fill="#6b7280">20</text>
-                  <text x="55" y="133" text-anchor="end" font-size="9" fill="#6b7280">40</text>
-                  <text x="55" y="73" text-anchor="end" font-size="9" fill="#6b7280">60</text>
-                  <text x="55" y="13" text-anchor="end" font-size="9" fill="#6b7280">80</text>
-                  <!-- Red (Optimal Arm) -->
-                  <polyline fill="none" stroke="#ef4444" stroke-width="2.5"
-                    points="60,247 94,241 127,235 161,229 194,220 228,202 261,191 295,170 328,151 362,138 396,116 429,90 463,63"/>
-                  <!-- Yellow -->
-                  <polyline fill="none" stroke="#f59e0b" stroke-width="2"
-                    points="60,250 94,247 127,247 161,239 194,236 228,234 261,226 295,226 328,221 362,221 396,218 429,218 463,218"/>
-                  <!-- Blue -->
-                  <polyline fill="none" stroke="#3b82f6" stroke-width="2"
-                    points="60,250 94,244 127,236 161,234 194,231 228,229 261,229 295,229 328,226 362,223 396,223 429,223 463,223"/>
-                  <!-- Green -->
-                  <polyline fill="none" stroke="#22c55e" stroke-width="2"
-                    points="60,250 94,247 127,241 161,236 194,229 228,226 261,223 295,218 328,218 362,213 396,210 429,210 463,210"/>
-                  <!-- Purple -->
-                  <polyline fill="none" stroke="#8b5cf6" stroke-width="2"
-                    points="60,250 94,239 127,231 161,226 194,221 228,218 261,213 295,213 328,213 362,207 396,207 429,207 463,207"/>
-                  <!-- Legend -->
-                  <line x1="70" y1="20" x2="85" y2="20" stroke="#ef4444" stroke-width="2.5"/><text x="88" y="24" font-size="9" fill="#374151" font-weight="600">Red (optimal)</text>
-                  <line x1="160" y1="20" x2="175" y2="20" stroke="#f59e0b" stroke-width="2"/><text x="178" y="24" font-size="9" fill="#374151" font-weight="600">Yellow</text>
-                  <line x1="215" y1="20" x2="230" y2="20" stroke="#3b82f6" stroke-width="2"/><text x="233" y="24" font-size="9" fill="#374151" font-weight="600">Blue</text>
-                  <line x1="265" y1="20" x2="280" y2="20" stroke="#22c55e" stroke-width="2"/><text x="283" y="24" font-size="9" fill="#374151" font-weight="600">Green</text>
-                  <line x1="325" y1="20" x2="340" y2="20" stroke="#8b5cf6" stroke-width="2"/><text x="343" y="24" font-size="9" fill="#374151" font-weight="600">Purple</text>
-                </svg>
+                <img src="static/img/dora-arms-selected.png"
+                     alt="Cumulative arm selection by DORA over a single episode"
+                     style="width:100%;border-radius:8px;border:1px solid #e5e7eb;">
               </div>
               <div class="side-chart">
                 <p class="caption has-text-centered">
-                  Optimal-arm selection across methods over a horizon of <i>T</i>&nbsp;=&nbsp;200.
-                  DORA explores more in the early stages but selects the optimal arm more often
-                  as the episode progresses.
+                  Cumulative regret across methods over a horizon of <i>T</i>&nbsp;=&nbsp;500.
+                  DORA&rsquo;s &lambda;<sub>exp</sub> schedule approaches classical baselines (UCB, TS),
+                  while a greedy LLM (&tau;&nbsp;=&nbsp;0) accumulates substantially higher regret.
                 </p>
-                <img src="static/img/optimal-arm-baselines.png"
-                     alt="Optimal arm fraction across baselines and DORA with varying tau"
+                <img src="static/img/cumulative-regret.png"
+                     alt="Cumulative regret across baselines and DORA"
                      style="width:100%;border-radius:8px;border:1px solid #e5e7eb;">
               </div>
             </div>
@@ -351,10 +306,10 @@
           <div class="finding-body">
             <p>
               Multi-Armed Bandits (MAB) provide a classical testbed for the
-              exploration&ndash;exploitation trade-off. We study the hard instance with
-              <i>K</i>=5 arms, gap &Delta;=0.2, and horizon <i>T</i>=200.
+              exploration&ndash;exploitation trade-off. We study the Bernoulli instance with
+              <i>K</i>=5 arms, gap &Delta;=0.2, and horizon <i>T</i>=500.
               For &tau;&nbsp;&le;&nbsp;1, the model behaves overly greedily, often committing early
-              to a suboptimal arm (suffix failure up to 95%). For &tau;&nbsp;&gt;&nbsp;1, increased
+              to a suboptimal arm (suffix failure up to 90%). For &tau;&nbsp;&gt;&nbsp;1, increased
               randomness prevents consistent exploitation. DORA explores effectively in early stages
               and rapidly converges to the optimal arm, achieving zero Suffix Failure Frequency and
               approaching the near-optimal UCB baseline.
@@ -366,39 +321,41 @@
                     <th>Metric</th>
                     <th>UCB</th><th>TS</th><th>Greedy</th><th>&epsilon;-Greedy</th>
                     <th>&tau;=0</th><th>&tau;=0.7</th><th>&tau;=1</th><th>&tau;=1.5</th><th>&tau;<sub>exp</sub></th>
-                    <th class="is-dora">DORA</th>
+                    <th class="is-dora">DORA &lambda;<sub>exp</sub></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>Mean Avg Reward</td>
-                    <td>0.531</td><td>0.512</td><td>0.506</td><td>0.490</td>
-                    <td>0.410</td><td>0.410</td><td>0.401</td><td>0.440</td><td>0.433</td>
-                    <td class="is-dora"><b>0.514</b></td>
+                    <td>0.564</td><td>0.548</td><td>0.503</td><td>0.509</td>
+                    <td>0.414</td><td>0.414</td><td>0.422</td><td>0.518</td><td>0.484</td>
+                    <td class="is-dora"><b>0.538</b></td>
                   </tr>
                   <tr>
                     <td>SuffFailFreq(T/2)</td>
-                    <td>0.02</td><td>0.00</td><td>0.42</td><td>0.30</td>
-                    <td>0.90</td><td>0.90</td><td>0.95</td><td>0.25</td><td>0.10</td>
-                    <td class="is-dora"><b>0.00</b></td>
+                    <td>0.011</td><td>0.000</td><td>0.465</td><td>0.230</td>
+                    <td>0.900</td><td>0.900</td><td>0.850</td><td>0.000</td><td>0.000</td>
+                    <td class="is-dora"><b>0.000</b></td>
                   </tr>
                   <tr>
                     <td>Best Arm Fraction</td>
-                    <td>0.66</td><td>0.57</td><td>0.53</td><td>0.455</td>
-                    <td>0.10</td><td>0.10</td><td>0.04</td><td>0.301</td><td>0.434</td>
-                    <td class="is-dora"><b>0.585</b></td>
+                    <td>0.824</td><td>0.743</td><td>0.515</td><td>0.550</td>
+                    <td>0.100</td><td>0.100</td><td>0.131</td><td>0.675</td><td>0.698</td>
+                    <td class="is-dora"><b>0.703</b></td>
                   </tr>
                   <tr>
-                    <td>Cumulative Regret</td>
-                    <td>13.68</td><td>17.16</td><td>18.90</td><td>21.80</td>
-                    <td>36.00</td><td>36.00</td><td>38.39</td><td>28.45</td><td>24.41</td>
-                    <td class="is-dora"><b>16.61</b></td>
+                    <td>Cum Regret</td>
+                    <td>17.637</td><td>25.686</td><td>48.502</td><td>44.998</td>
+                    <td>90.000</td><td>90.000</td><td>86.900</td><td>34.640</td><td>37.160</td>
+                    <td class="is-dora"><b>28.730</b></td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Table 1.</b> Performance on the hard MAB instance (Llama-3.1 8B).
+              <b>Table 1.</b> Performance on the Bernoulli MAB instance using Llama-3.1 8B with
+              horizon <i>T</i>=500. UCB, TS, Greedy, and &epsilon;-greedy are averaged over
+              <i>N</i>=1000 runs; LLM-based methods are averaged over <i>N</i>=20 runs.
             </p>
           </div>
         </details>
@@ -428,7 +385,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td rowspan="5"><b>Qwen-2.5 7B</b></td>
+                    <td rowspan="6"><b>Qwen-2.5 7B</b></td>
                     <td>Zero-shot</td>
                     <td>29.20<small>&plusmn;1.92</small></td>
                     <td>48.93<small>&plusmn;1.69</small></td>
@@ -460,16 +417,24 @@
                     <td>13.21<small>&plusmn;0.34</small></td>
                     <td>1.27<small>&plusmn;0.04</small></td>
                   </tr>
+                  <tr>
+                    <td>ReAct</td>
+                    <td>31.43<small>&plusmn;3.16</small></td>
+                    <td>39.50<small>&plusmn;0.62</small></td>
+                    <td><b>2.78</b><small>&plusmn;2.78</small></td>
+                    <td>9.92<small>&plusmn;0.62</small></td>
+                    <td><b>1.87</b><small>&plusmn;0.25</small></td>
+                  </tr>
                   <tr class="is-dora-row">
                     <td><b>DORA (Ours)</b></td>
                     <td><b>45.40</b><small>&plusmn;1.68</small></td>
                     <td><b>51.17</b><small>&plusmn;3.38</small></td>
                     <td><b>2.78</b><small>&plusmn;2.78</small></td>
                     <td><b>19.01</b><small>&plusmn;0.62</small></td>
-                    <td><b>1.42</b><small>&plusmn;0.24</small></td>
+                    <td>1.42<small>&plusmn;0.24</small></td>
                   </tr>
                   <tr class="model-divider">
-                    <td rowspan="5"><b>Llama-3.1 8B</b></td>
+                    <td rowspan="6"><b>Llama-3.1 8B</b></td>
                     <td>Zero-shot</td>
                     <td>40.74<small>&plusmn;0.67</small></td>
                     <td>48.29<small>&plusmn;1.04</small></td>
@@ -501,16 +466,24 @@
                     <td>13.70<small>&plusmn;0.59</small></td>
                     <td>1.60<small>&plusmn;0.21</small></td>
                   </tr>
+                  <tr>
+                    <td>ReAct</td>
+                    <td>22.92<small>&plusmn;5.04</small></td>
+                    <td><b>60.38</b><small>&plusmn;1.95</small></td>
+                    <td>0.00<small>&plusmn;0.00</small></td>
+                    <td>15.94<small>&plusmn;2.34</small></td>
+                    <td><b>2.88</b><small>&plusmn;0.51</small></td>
+                  </tr>
                   <tr class="is-dora-row">
                     <td><b>DORA (Ours)</b></td>
                     <td><b>50.15</b><small>&plusmn;6.88</small></td>
-                    <td><b>52.89</b><small>&plusmn;3.51</small></td>
+                    <td>52.89<small>&plusmn;3.51</small></td>
                     <td><b>2.78</b><small>&plusmn;2.78</small></td>
                     <td><b>16.85</b><small>&plusmn;0.58</small></td>
                     <td>2.17<small>&plusmn;0.21</small></td>
                   </tr>
                   <tr class="model-divider">
-                    <td rowspan="5"><b>Mistral Small 22B</b></td>
+                    <td rowspan="6"><b>Mistral Small 22B</b></td>
                     <td>Zero-shot</td>
                     <td>62.25<small>&plusmn;1.08</small></td>
                     <td>31.70<small>&plusmn;2.08</small></td>
@@ -542,20 +515,78 @@
                     <td>21.48<small>&plusmn;0.48</small></td>
                     <td>1.70<small>&plusmn;0.05</small></td>
                   </tr>
+                  <tr>
+                    <td>ReAct</td>
+                    <td>57.78<small>&plusmn;5.47</small></td>
+                    <td>23.54<small>&plusmn;2.07</small></td>
+                    <td>0.00<small>&plusmn;0.00</small></td>
+                    <td>26.70<small>&plusmn;4.19</small></td>
+                    <td><b>3.37</b><small>&plusmn;0.02</small></td>
+                  </tr>
                   <tr class="is-dora-row">
                     <td><b>DORA (Ours)</b></td>
                     <td><b>74.28</b><small>&plusmn;2.99</small></td>
                     <td><b>43.12</b><small>&plusmn;1.21</small></td>
                     <td><b>2.78</b><small>&plusmn;2.78</small></td>
                     <td><b>32.43</b><small>&plusmn;1.15</small></td>
-                    <td><b>2.92</b><small>&plusmn;0.66</small></td>
+                    <td>2.92<small>&plusmn;0.66</small></td>
+                  </tr>
+                  <tr class="model-divider">
+                    <td rowspan="6"><b>Llama-3.1 70B</b></td>
+                    <td>Zero-shot</td>
+                    <td>63.95<small>&plusmn;2.00</small></td>
+                    <td>82.25<small>&plusmn;0.75</small></td>
+                    <td>11.11<small>&plusmn;5.56</small></td>
+                    <td>54.35<small>&plusmn;1.29</small></td>
+                    <td>5.17<small>&plusmn;0.10</small></td>
+                  </tr>
+                  <tr>
+                    <td>Chain of Thought</td>
+                    <td>61.29<small>&plusmn;0.00</small></td>
+                    <td>80.23<small>&plusmn;1.88</small></td>
+                    <td>5.56<small>&plusmn;5.56</small></td>
+                    <td>45.23<small>&plusmn;2.05</small></td>
+                    <td><b>5.37</b><small>&plusmn;0.17</small></td>
+                  </tr>
+                  <tr>
+                    <td>Tree of Thought</td>
+                    <td>67.03<small>&plusmn;4.55</small></td>
+                    <td>48.73<small>&plusmn;3.70</small></td>
+                    <td>0.00<small>&plusmn;0.00</small></td>
+                    <td>28.32<small>&plusmn;3.47</small></td>
+                    <td>3.31<small>&plusmn;0.44</small></td>
+                  </tr>
+                  <tr>
+                    <td>Prompt Explore</td>
+                    <td>61.95<small>&plusmn;1.15</small></td>
+                    <td>83.87<small>&plusmn;3.12</small></td>
+                    <td>0.00<small>&plusmn;0.00</small></td>
+                    <td>52.51<small>&plusmn;3.61</small></td>
+                    <td><b>5.57</b><small>&plusmn;0.19</small></td>
+                  </tr>
+                  <tr>
+                    <td>ReAct</td>
+                    <td>57.03<small>&plusmn;4.42</small></td>
+                    <td>70.60<small>&plusmn;3.37</small></td>
+                    <td><b>16.67</b><small>&plusmn;0.00</small></td>
+                    <td>44.79<small>&plusmn;1.47</small></td>
+                    <td>4.72<small>&plusmn;0.37</small></td>
+                  </tr>
+                  <tr class="is-dora-row">
+                    <td><b>DORA (Ours)</b></td>
+                    <td><b>71.12</b><small>&plusmn;2.24</small></td>
+                    <td><b>85.33</b><small>&plusmn;0.73</small></td>
+                    <td><b>16.67</b><small>&plusmn;0.00</small></td>
+                    <td><b>63.40</b><small>&plusmn;2.62</small></td>
+                    <td>5.22<small>&plusmn;0.09</small></td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Table 2.</b> Performance across TALES environments, reported as mean normalised
-              scores &plusmn; standard error over 3 runs.
+              <b>Table 2.</b> Performance of DORA compared to baseline prompting strategies on
+              TALES environments. Results report mean normalised scores across tasks &plusmn;
+              standard error over 3 runs.
             </p>
           </div>
         </details>
@@ -611,48 +642,53 @@
               DORA visits significantly more unique states per task across all TALES environments,
               indicating greater coverage and information gathering.
             </p>
-            <div class="chart-legend">
-              <span class="chart-legend-item"><span class="legend-swatch" style="background:#b6e3f4;"></span>Zero-shot</span>
-              <span class="chart-legend-item"><span class="legend-swatch" style="background:#fdd8a5;"></span>Prompt Explore</span>
-              <span class="chart-legend-item"><span class="legend-swatch" style="background:#b2dfdb;"></span>CoT</span>
-              <span class="chart-legend-item"><span class="legend-swatch" style="background:#bbdefb;"></span>ToT</span>
-              <span class="chart-legend-item"><span class="legend-swatch dora-swatch"></span>DORA (Auto)</span>
-            </div>
-            <div class="grouped-chart">
-              <div class="chart-group">
-                <div class="chart-group-label">TextWorld</div>
-                <div class="chart-bars">
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:43.75%;background:#b6e3f4;"></div><span class="chart-val">14.0</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:37.81%;background:#fdd8a5;"></div><span class="chart-val">12.1</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:54.69%;background:#b2dfdb;"></div><span class="chart-val">17.5</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:37.81%;background:#bbdefb;"></div><span class="chart-val">12.1</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar chart-bar-dora" style="width:100%;"></div><span class="chart-val"><b>32.0</b></span></div>
-                </div>
-              </div>
-              <div class="chart-group">
-                <div class="chart-group-label">ScienceWorld</div>
-                <div class="chart-bars">
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:32.13%;background:#b6e3f4;"></div><span class="chart-val">6.5</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:44.0%;background:#fdd8a5;"></div><span class="chart-val">8.9</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:40.68%;background:#b2dfdb;"></div><span class="chart-val">8.23</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:22.74%;background:#bbdefb;"></div><span class="chart-val">4.6</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar chart-bar-dora" style="width:100%;"></div><span class="chart-val"><b>20.23</b></span></div>
-                </div>
-              </div>
-              <div class="chart-group">
-                <div class="chart-group-label">AlfWorld</div>
-                <div class="chart-bars">
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:9.56%;background:#b6e3f4;"></div><span class="chart-val">2.67</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:13.14%;background:#fdd8a5;"></div><span class="chart-val">3.67</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:11.63%;background:#b2dfdb;"></div><span class="chart-val">3.25</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar" style="width:13.14%;background:#bbdefb;"></div><span class="chart-val">3.67</span></div>
-                  <div class="chart-bar-row"><div class="chart-bar chart-bar-dora" style="width:100%;"></div><span class="chart-val"><b>27.92</b></span></div>
-                </div>
-              </div>
+            <div class="table-container">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>TextWorld</th>
+                    <th>ScienceWorld</th>
+                    <th>AlfWorld</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Zero-shot</td>
+                    <td>14.0</td>
+                    <td>6.5</td>
+                    <td>2.67</td>
+                  </tr>
+                  <tr>
+                    <td>Prompt Explore</td>
+                    <td>12.1</td>
+                    <td>8.9</td>
+                    <td>3.67</td>
+                  </tr>
+                  <tr>
+                    <td>CoT</td>
+                    <td>17.5</td>
+                    <td>8.23</td>
+                    <td>3.25</td>
+                  </tr>
+                  <tr>
+                    <td>ToT</td>
+                    <td>12.1</td>
+                    <td>4.6</td>
+                    <td>3.67</td>
+                  </tr>
+                  <tr class="is-dora-row">
+                    <td><b>DORA (Auto)</b></td>
+                    <td><b>32.0</b></td>
+                    <td><b>20.23</b></td>
+                    <td><b>27.92</b></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Figure 1.</b> Average number of unique states visited per task across TALES
-              environments.
+              <b>Table 4.</b> Average number of unique states visited per task in different TALES
+              environments. Higher values indicate greater environment coverage.
             </p>
           </div>
         </details>
@@ -689,7 +725,7 @@
               </table>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Table 4.</b> Comparison of &tau;-sampling strategies against DORA on TextWorld.
+              <b>Table 5.</b> Comparison of &tau;-sampling strategies against DORA on TextWorld.
             </p>
           </div>
         </details>
@@ -701,21 +737,33 @@
               <table class="table is-bordered is-striped is-narrow is-fullwidth is-size-7">
                 <thead>
                   <tr>
-                    <th>(&alpha;,&beta;)</th>
-                    <th>(1.0,0.0)</th><th>(0.8,0.2)</th><th>(0.6,0.4)</th><th>(0.4,0.6)</th><th>(0.2,0.8)</th><th>(0.0,1.0)</th>
+                    <th>Metric</th>
+                    <th>(1.0, 0.0)</th><th>(0.8, 0.2)</th><th>(0.6, 0.4)</th><th>(0.4, 0.6)</th><th>(0.2, 0.8)</th><th>(0.0, 1.0)</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>Mean Reward</td><td>0.496</td><td class="is-dora"><b>0.514</b></td><td>0.509</td><td>0.506</td><td>0.500</td><td>0.511</td></tr>
-                  <tr><td>SuffFail</td><td>0.05</td><td class="is-dora"><b>0.00</b></td><td>0.05</td><td>0.05</td><td>0.05</td><td>0.00</td></tr>
-                  <tr><td>Best Arm</td><td>0.516</td><td class="is-dora"><b>0.585</b></td><td>0.584</td><td>0.540</td><td>0.528</td><td>0.577</td></tr>
-                  <tr><td>Regret</td><td>19.34</td><td class="is-dora"><b>16.61</b></td><td>16.63</td><td>18.40</td><td>18.90</td><td>16.92</td></tr>
+                  <tr>
+                    <td>Mean Avg Reward</td>
+                    <td>0.496</td><td class="is-dora"><b>0.521</b></td><td>0.509</td><td>0.506</td><td>0.500</td><td>0.511</td>
+                  </tr>
+                  <tr>
+                    <td>Suff. Fail Freq (T/2)</td>
+                    <td>0.05</td><td class="is-dora"><b>0.00</b></td><td>0.05</td><td>0.05</td><td>0.05</td><td>0.00</td>
+                  </tr>
+                  <tr>
+                    <td>Best Arm Frac</td>
+                    <td>0.516</td><td class="is-dora"><b>0.618</b></td><td>0.584</td><td>0.540</td><td>0.528</td><td>0.577</td>
+                  </tr>
+                  <tr>
+                    <td>Cum. Regret</td>
+                    <td>19.34</td><td class="is-dora"><b>15.26</b></td><td>16.63</td><td>18.40</td><td>18.90</td><td>16.92</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Table 5.</b> Effect of the &alpha; confidence&ndash;consistency weighting on MAB
-              performance.
+              <b>Table 6.</b> Ablation over explore-score weights (&alpha;, 1&minus;&alpha;) on the hard MAB
+              instance using Llama-3.1 8B. (0.8, 0.2) provides the best overall trade-off.
             </p>
           </div>
         </details>
@@ -736,7 +784,7 @@
               </table>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Table 6.</b> &lambda;-schedule versus Auto-Explore on TextWorld.
+              <b>Table 7.</b> &lambda;-schedule versus Auto-Explore on TextWorld.
             </p>
           </div>
         </details>
@@ -745,38 +793,46 @@
           <summary class="finding-summary">DORA uses more tokens but achieves substantially better outcomes.</summary>
           <div class="finding-body">
             <p>
-              DORA Explorer uses ~2&times; more tokens than Prompt Explore (which uses the fewest),
-              but this additional compute translates into significantly better task performance.
+              DORA uses approximately 2&times; more tokens than Prompt Explore while remaining
+              less expensive than ReAct; this additional compute translates into significantly
+              better task performance.
             </p>
             <div class="hbar-chart">
               <div class="hbar-row">
                 <span class="hbar-label">Zero-shot</span>
-                <div class="hbar-track"><div class="hbar-fill" style="width:55.7%;background:#b6e3f4;"></div></div>
+                <div class="hbar-track"><div class="hbar-fill" style="width:50.8%;background:#b6e3f4;"></div></div>
                 <span class="hbar-val">0.20M</span>
               </div>
               <div class="hbar-row">
                 <span class="hbar-label">Prompt Explore</span>
-                <div class="hbar-track"><div class="hbar-fill" style="width:52.96%;background:#fdd8a5;"></div></div>
+                <div class="hbar-track"><div class="hbar-fill" style="width:48.3%;background:#fdd8a5;"></div></div>
                 <span class="hbar-val">0.19M</span>
               </div>
               <div class="hbar-row">
                 <span class="hbar-label">CoT</span>
-                <div class="hbar-track"><div class="hbar-fill" style="width:77.86%;background:#b2dfdb;"></div></div>
+                <div class="hbar-track"><div class="hbar-fill" style="width:71.0%;background:#b2dfdb;"></div></div>
                 <span class="hbar-val">0.28M</span>
               </div>
               <div class="hbar-row">
                 <span class="hbar-label">ToT</span>
-                <div class="hbar-track"><div class="hbar-fill" style="width:81.51%;background:#bbdefb;"></div></div>
+                <div class="hbar-track"><div class="hbar-fill" style="width:74.3%;background:#bbdefb;"></div></div>
                 <span class="hbar-val">0.30M</span>
               </div>
               <div class="hbar-row">
-                <span class="hbar-label"><b>DORA Explorer</b></span>
-                <div class="hbar-track"><div class="hbar-fill hbar-fill-dora" style="width:100%;"></div></div>
+                <span class="hbar-label"><b>DORA</b></span>
+                <div class="hbar-track"><div class="hbar-fill hbar-fill-dora" style="width:91.2%;"></div></div>
                 <span class="hbar-val"><b>0.36M</b></span>
+              </div>
+              <div class="hbar-row">
+                <span class="hbar-label">ReAct</span>
+                <div class="hbar-track"><div class="hbar-fill" style="width:97.9%;background:#f8b4b4;"></div></div>
+                <span class="hbar-val">0.39M</span>
               </div>
             </div>
             <p class="has-text-centered is-size-7 caption">
-              <b>Figure 2.</b> Average token usage per task on TALES TextWorld.
+              <b>Figure 1.</b> Average token usage per TextWorld task for Llama-3.1 8B.
+              DORA uses approximately 2&times; more tokens than Prompt Explore while remaining
+              less expensive than ReAct.
             </p>
           </div>
         </details>
